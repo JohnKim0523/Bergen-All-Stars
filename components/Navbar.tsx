@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 
@@ -46,10 +45,9 @@ export default function Navbar() {
 
   const navLinks = [
     { href: '/', label: 'Home' },
-    { href: '/services', label: 'Services' },
-    { href: '/pricing', label: 'Pricing' },
     { href: '/about', label: 'About Us' },
-    { href: '/contacts', label: 'Contact' },
+    { href: '/programs', label: 'Programs' },
+    { href: '/contact', label: 'Contact' },
   ];
 
   return (
@@ -64,17 +62,10 @@ export default function Navbar() {
         <div className="flex items-center justify-between transition-all duration-300" style={{ height: isScrolled ? '4rem' : '5rem' }}>
           {/* Logo/Brand */}
           <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-all duration-300">
-            <div className="shrink-0 transition-all duration-300 relative" style={{ width: isScrolled ? '3.5rem' : '4.5rem', height: isScrolled ? '3.5rem' : '4.5rem' }}>
-              <Image
-                src="/logo.png"
-                alt="DigiTrust Logo"
-                fill
-                className="object-contain"
-                style={{ filter: 'invert(1)' }}
-                priority
-              />
+            <div className="shrink-0 transition-all duration-300 flex items-center justify-center bg-blue-600 rounded-full" style={{ width: isScrolled ? '2.5rem' : '3rem', height: isScrolled ? '2.5rem' : '3rem' }}>
+              <span className="text-white font-bold" style={{ fontSize: isScrolled ? '1rem' : '1.2rem' }}>BAS</span>
             </div>
-            <span className="font-semibold text-black tracking-tight transition-all duration-300" style={{ fontSize: isScrolled ? '1.4rem' : '1.75rem' }}>DIGITRUST</span>
+            <span className="font-semibold text-blue-800 tracking-tight transition-all duration-300" style={{ fontSize: isScrolled ? '1.2rem' : '1.5rem' }}>Bergen All-Stars</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -96,7 +87,7 @@ export default function Navbar() {
                     paddingBottom: '0.5rem'
                   }}
                 >
-                  <span className="inline-block transition-all duration-200 hover:scale-110 hover:text-black">
+                  <span className="inline-block transition-all duration-200 hover:scale-105 hover:text-blue-600">
                     {link.label}
                   </span>
                 </Link>
@@ -104,11 +95,11 @@ export default function Navbar() {
             })}
             {/* Sliding underline */}
             <span
-              className="absolute bottom-0 bg-black transition-all duration-500 ease-in-out"
+              className="absolute bottom-0 bg-blue-600 transition-all duration-500 ease-in-out"
               style={{
                 left: `${underlineStyle.left}px`,
                 width: `${underlineStyle.width}px`,
-                height: '1.5px',
+                height: '2px',
               }}
             />
           </div>
