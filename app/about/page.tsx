@@ -1,36 +1,17 @@
-export default function About() {
-  const boardMembers = [
-    {
-      name: "Eunjung Kim",
-      role: "Board of Trustees",
-    },
-    {
-      name: "Eunice Lee",
-      role: "Board of Trustees",
-    },
-    {
-      name: "Veronica Hong",
-      role: "Board of Trustees",
-    },
-    {
-      name: "Minjung Shim",
-      role: "Board of Trustees",
-    },
-  ];
+import Link from 'next/link';
 
+export default function About() {
   return (
     <div className="bg-white">
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-blue-600 to-blue-800 text-white">
-        <div style={{ maxWidth: '90rem', margin: '0 auto', paddingLeft: '6rem', paddingRight: '4rem', paddingTop: '5rem', paddingBottom: '5rem' }}>
-          <div className="max-w-3xl">
-            <h1 className="font-bold text-white mb-6" style={{ fontSize: '3rem', lineHeight: '1.15' }}>
-              About Us
-            </h1>
-            <p className="text-blue-100 leading-relaxed" style={{ fontSize: '1.25rem' }}>
-              Learn about our mission, values, and the dedicated team working to support Northern New Jersey&apos;s special needs community.
-            </p>
-          </div>
+        <div style={{ maxWidth: '70rem', margin: '0 auto', padding: '4rem 2rem' }}>
+          <h1 className="font-bold text-white mb-4" style={{ fontSize: '2.75rem', lineHeight: '1.15' }}>
+            About Us
+          </h1>
+          <p className="text-blue-100 leading-relaxed" style={{ fontSize: '1.15rem', maxWidth: '600px' }}>
+            Learn about our mission, values, and the dedicated team working to support Northern New Jersey&apos;s special needs community.
+          </p>
         </div>
       </section>
 
@@ -136,53 +117,26 @@ export default function About() {
         </div>
       </section>
 
-      {/* Board of Trustees */}
+      {/* Meet Our People */}
       <section className="bg-white border-t border-gray-200">
-        <div style={{ maxWidth: '90rem', margin: '0 auto', paddingLeft: '6rem', paddingRight: '4rem', paddingTop: '5rem', paddingBottom: '5rem' }}>
-          <div className="text-center mb-12">
-            <h2 className="font-bold text-gray-900 mb-4" style={{ fontSize: '2rem' }}>
-              Board of Trustees
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Our organization is led by a dedicated Board of Trustees who bring passion and commitment to serving our community.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {boardMembers.map((member, index) => (
-              <div key={index} className="text-center">
-                <div className="w-32 h-32 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white font-bold text-3xl">
-                    {member.name.split(' ').map(n => n[0]).join('')}
-                  </span>
-                </div>
-                <h3 className="font-semibold text-gray-900" style={{ fontSize: '1.125rem' }}>
-                  {member.name}
-                </h3>
-                <p className="text-gray-500 text-sm">{member.role}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="bg-blue-700">
-        <div style={{ maxWidth: '90rem', margin: '0 auto', paddingLeft: '6rem', paddingRight: '4rem', paddingTop: '4rem', paddingBottom: '4rem' }}>
-          <div className="text-center">
-            <h2 className="font-bold text-white mb-4" style={{ fontSize: '1.75rem' }}>
-              Join Our Mission
-            </h2>
-            <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
-              We&apos;re always looking for passionate individuals to help us make a difference. Whether through volunteering, donations, or partnerships, your support matters.
-            </p>
-            <a
-              href="/contact"
-              className="inline-block bg-white hover:bg-blue-50 text-blue-700 font-semibold transition-colors"
-              style={{ padding: '0.875rem 2rem', borderRadius: '0.5rem', fontSize: '1rem' }}
-            >
-              Get Involved
-            </a>
+        <div style={{ maxWidth: '70rem', margin: '0 auto', padding: '4rem 2rem' }} className="text-center">
+          <h2 className="font-bold text-gray-900 mb-4" style={{ fontSize: '1.75rem' }}>
+            Meet the People Behind Bergen All-Stars
+          </h2>
+          <p className="text-gray-600 max-w-2xl mx-auto mb-8">
+            Our organization is powered by a passionate Board of Trustees and selfless volunteer coaches.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link href="/board">
+              <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold transition-colors" style={{ padding: '0.875rem 2rem', borderRadius: '0.5rem' }}>
+                Our Board
+              </button>
+            </Link>
+            <Link href="/coaches">
+              <button className="bg-white hover:bg-gray-50 text-blue-700 font-semibold border-2 border-blue-600 transition-colors" style={{ padding: '0.875rem 2rem', borderRadius: '0.5rem' }}>
+                Our Coaches
+              </button>
+            </Link>
           </div>
         </div>
       </section>

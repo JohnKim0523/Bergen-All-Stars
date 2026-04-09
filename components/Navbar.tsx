@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 
@@ -14,7 +15,6 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Add hysteresis to prevent rapid toggling
       const scrollPosition = window.scrollY;
       if (scrollPosition > 50) {
         setIsScrolled(true);
@@ -28,7 +28,6 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    // Update underline position when pathname or hover changes
     const activeIndex = navLinks.findIndex(link => link.href === pathname);
     const targetIndex = hoveredIndex !== null ? hoveredIndex : activeIndex;
 
@@ -45,31 +44,39 @@ export default function Navbar() {
 
   const navLinks = [
     { href: '/', label: 'Home' },
-    { href: '/about', label: 'About Us' },
     { href: '/programs', label: 'Programs' },
-    { href: '/contact', label: 'Contact' },
+    { href: '/coaches', label: 'Our Coaches' },
+    { href: '/board', label: 'Board' },
+    { href: '/about', label: 'About Us' },
   ];
 
   return (
     <nav
-      className="sticky top-0 z-50 transition-all duration-300 border-b bg-white"
+      className="sticky top-0 z-50 transition-all duration-300"
       style={{
-        borderColor: '#e5e7eb',
-        boxShadow: isScrolled ? '0 2px 8px rgba(0,0,0,0.05)' : '0 2px 4px rgba(0,0,0,0.02)'
+        background: isScrolled ? '#0a3a72' : '#041c3a',
+        boxShadow: isScrolled ? '0 2px 12px rgba(0,0,0,0.3)' : 'none',
       }}
     >
-      <div style={{ maxWidth: '90rem', margin: '0 auto', paddingLeft: '6rem', paddingRight: '4rem' }}>
+      {/* Red accent line at bottom */}
+      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-red-600" />
+
+      <div style={{ maxWidth: '55rem', margin: '0 auto', paddingLeft: '1rem', paddingRight: '1rem' }}>
         <div className="flex items-center justify-between transition-all duration-300" style={{ height: isScrolled ? '4rem' : '5rem' }}>
           {/* Logo/Brand */}
           <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-all duration-300">
-            <div className="shrink-0 transition-all duration-300 flex items-center justify-center bg-blue-600 rounded-full" style={{ width: isScrolled ? '2.5rem' : '3rem', height: isScrolled ? '2.5rem' : '3rem' }}>
-              <span className="text-white font-bold" style={{ fontSize: isScrolled ? '1rem' : '1.2rem' }}>BAS</span>
-            </div>
-            <span className="font-semibold text-blue-800 tracking-tight transition-all duration-300" style={{ fontSize: isScrolled ? '1.2rem' : '1.5rem' }}>Bergen All-Stars</span>
+            <Image
+              src="/images/logo.png"
+              alt="Bergen All-Stars Logo"
+              width={isScrolled ? 50 : 65}
+              height={isScrolled ? 50 : 65}
+              className="shrink-0 transition-all duration-300"
+            />
+            <span className="font-semibold text-white tracking-tight transition-all duration-300" style={{ fontSize: isScrolled ? '1.2rem' : '1.5rem' }}>Bergen All-Stars</span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8 relative">
+          <div className="hidden md:flex items-center gap-6 relative">
             {navLinks.map((link, index) => {
               const isActive = pathname === link.href;
               return (
@@ -79,57 +86,79 @@ export default function Navbar() {
                   ref={(el) => { navRefs.current[index] = el; }}
                   onMouseEnter={() => setHoveredIndex(index)}
                   onMouseLeave={() => setHoveredIndex(null)}
-                  className={`relative transition-all duration-200 ${
-                    isActive ? 'text-black font-medium' : 'text-gray-600'
-                  }`}
+                  className="relative transition-all duration-200"
                   style={{
-                    fontSize: isScrolled ? '0.85rem' : '0.875rem',
-                    paddingBottom: '0.5rem'
+                    fontSize: isScrolled ? '0.8rem' : '0.85rem',
+                    paddingBottom: '0.5rem',
+                    color: isActive ? '#ffffff' : '#e5e7eb',
+                    fontWeight: isActive ? 700 : 400,
                   }}
                 >
-                  <span className="inline-block transition-all duration-200 hover:scale-105 hover:text-blue-600">
+                  <span className="inline-block transition-all duration-200 hover:scale-105 hover:text-white">
                     {link.label}
                   </span>
                 </Link>
               );
             })}
-            {/* Sliding underline */}
+            {/* Sliding underline - red */}
             <span
-              className="absolute bottom-0 bg-blue-600 transition-all duration-500 ease-in-out"
+              className="absolute bottom-0 bg-red-500 transition-all duration-500 ease-in-out"
               style={{
                 left: `${underlineStyle.left}px`,
                 width: `${underlineStyle.width}px`,
                 height: '2px',
               }}
             />
+
+            {/* Donate Button */}
+            <Link
+              href="/donate"
+              className="bg-red-600 hover:bg-red-700 text-white font-semibold transition-colors"
+              style={{ padding: '0.5rem 1.25rem', borderRadius: '0.375rem', fontSize: '0.85rem' }}
+            >
+              Donate
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden text-2xl text-black"
+            className="md:hidden text-2xl text-white"
           >
             {isMobileMenuOpen ? '✕' : '☰'}
           </button>
         </div>
 
         {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden pb-4">
-            <div className="flex flex-col space-y-2">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-gray-700 hover:text-black transition-colors py-2"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
+        <div
+          className="md:hidden overflow-hidden transition-all duration-300 ease-in-out"
+          style={{
+            maxHeight: isMobileMenuOpen ? '400px' : '0',
+            opacity: isMobileMenuOpen ? 1 : 0,
+          }}
+        >
+          <div className="flex flex-col space-y-2 pb-4">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                style={{ color: '#e5e7eb' }}
+                className="hover:text-white transition-colors py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {link.label}
+              </Link>
+            ))}
+            <Link
+              href="/donate"
+              className="bg-red-600 hover:bg-red-700 text-white font-semibold text-center transition-colors py-2"
+              style={{ borderRadius: '0.375rem' }}
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Donate
+            </Link>
           </div>
-        )}
+        </div>
       </div>
     </nav>
   );

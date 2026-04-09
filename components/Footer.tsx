@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Footer() {
   return (
@@ -8,13 +9,17 @@ export default function Footer() {
           {/* Organization Info */}
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
-                <span className="text-blue-900 font-bold text-sm">BAS</span>
-              </div>
+              <Image
+                src="/images/logo.png"
+                alt="Bergen All-Stars Logo"
+                width={40}
+                height={40}
+                className="rounded-full"
+              />
               <span className="font-semibold text-xl">Bergen All-Stars</span>
             </div>
             <p className="text-blue-200 text-sm leading-relaxed">
-              A New Jersey Nonprofit Corporation dedicated to supporting, protecting, and empowering Northern New Jersey&apos;s special needs population.
+              A New Jersey Nonprofit Corporation dedicated to supporting, protecting, and empowering Northern New Jersey&apos;s special needs population through free sports programs.
             </p>
           </div>
 
@@ -28,18 +33,28 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="text-blue-200 hover:text-white transition-colors text-sm">
-                  About Us
-                </Link>
-              </li>
-              <li>
                 <Link href="/programs" className="text-blue-200 hover:text-white transition-colors text-sm">
                   Programs
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-blue-200 hover:text-white transition-colors text-sm">
-                  Contact
+                <Link href="/coaches" className="text-blue-200 hover:text-white transition-colors text-sm">
+                  Our Coaches
+                </Link>
+              </li>
+              <li>
+                <Link href="/board" className="text-blue-200 hover:text-white transition-colors text-sm">
+                  Board
+                </Link>
+              </li>
+              <li>
+                <Link href="/about" className="text-blue-200 hover:text-white transition-colors text-sm">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link href="/donate" className="text-blue-200 hover:text-white transition-colors text-sm">
+                  Donate
                 </Link>
               </li>
             </ul>

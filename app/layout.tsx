@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Lato } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const inter = Inter({ subsets: ["latin"] });
+const lato = Lato({ subsets: ["latin"], weight: ["300", "400", "700", "900"] });
 
 export const metadata: Metadata = {
   title: "Bergen All-Stars | Supporting Northern NJ's Special Needs Community",
@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={lato.className}>
         <Navbar />
         <main className="min-h-screen">
           {children}
