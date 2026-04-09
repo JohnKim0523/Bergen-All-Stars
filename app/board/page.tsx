@@ -1,27 +1,53 @@
+import Image from 'next/image';
+
 const boardMembers = [
   {
+    name: 'Judy Shin',
+    role: 'Board President',
+    image: '/images/board/judy-shin.png',
+    imagePosition: 'object-[center_20%]',
+    bio: [
+      'LTP Coordinator, Bergen All-Stars Special Olympic Team',
+      'Former Teacher in Closter School District (1995–2009)',
+    ],
+  },
+  {
     name: 'Eunjung Kim',
-    role: 'Board of Trustees',
-    bio: 'Placeholder bio — describe their role and contribution to the organization.',
-    image: null,
+    role: 'Board Member',
+    image: '/images/board/eunjung-kim.png',
+    bio: [
+      'Assistant LTP Coordinator, Bergen All-Stars Special Olympic Team',
+      'Former Software Programmer for Samsung and H Mart',
+    ],
   },
   {
-    name: 'Eunice Lee',
-    role: 'Board of Trustees',
-    bio: 'Placeholder bio — describe their role and contribution to the organization.',
-    image: null,
+    name: 'Ji Sun Kim',
+    role: 'Board Member',
+    image: '/images/board/ju-sun-kim.jpg',
+    bio: [
+      'Support Coordinator – Infinity Today',
+      'Head Coach, Bergen All-Stars Bocce Team – Special Olympics of New Jersey (Summer Games 2024 & 2025)',
+      'Former Revenue Auditor | Accounts Receivable Coordinator',
+    ],
   },
   {
-    name: 'Veronica Hong',
-    role: 'Board of Trustees',
-    bio: 'Placeholder bio — describe their role and contribution to the organization.',
-    image: null,
+    name: 'Eunyoung Lee',
+    role: 'Board Member',
+    image: '/images/board/eunyoung-lee.jpg',
+    bio: [
+      'Pre-K School Teacher at Bambini School, Leonia (2019–Present)',
+      'Bergen All-Stars Swim Team General Manager – Special Olympics of New Jersey (2024 & 2025)',
+    ],
   },
   {
     name: 'Minjung Shim',
-    role: 'Board of Trustees',
-    bio: 'Placeholder bio — describe their role and contribution to the organization.',
-    image: null,
+    role: 'Board Member',
+    image: '/images/board/minjung-shim.jpg',
+    bio: [
+      'General Manager, Bergen All-Stars Swim Team',
+      'Former Graphic & Packaging Designer',
+      'Full-Time Caregiver for a Child with Autism',
+    ],
   },
 ];
 
@@ -29,53 +55,84 @@ export default function Board() {
   return (
     <div className="bg-white">
       {/* Hero */}
-      <section className="bg-gradient-to-br from-blue-600 to-blue-800 text-white">
+      <section style={{ background: 'linear-gradient(135deg, #041c3a 0%, #0a3a72 50%, #083060 100%)' }} className="text-white">
         <div style={{ maxWidth: '70rem', margin: '0 auto', padding: '4rem 2rem' }}>
+          <div className="flex gap-2 mb-4">
+            <svg className="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg className="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
           <h1 className="font-bold text-white mb-4" style={{ fontSize: '2.75rem', lineHeight: '1.15' }}>
             Board of Trustees
           </h1>
-          <p className="text-blue-100 leading-relaxed" style={{ fontSize: '1.15rem', maxWidth: '600px' }}>
+          <div className="w-16 h-1 bg-red-500 mb-5" />
+          <p className="leading-relaxed" style={{ fontSize: '1.15rem', maxWidth: '600px', color: '#e5e7eb' }}>
             Our Board of Trustees leads the fundraising and strategic direction of Bergen All-Stars, ensuring we have the resources to serve our community.
           </p>
         </div>
       </section>
 
-      {/* Board Members Grid */}
-      <section className="bg-white">
+      {/* Board Members */}
+      <section className="bg-gray-50">
         <div style={{ maxWidth: '70rem', margin: '0 auto', padding: '4rem 2rem' }}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="flex flex-col gap-6">
             {boardMembers.map((member, index) => (
-              <div key={index} className="bg-white rounded-xl border border-gray-200 p-8 text-center hover:shadow-lg transition-shadow">
-                {/* Headshot placeholder */}
-                <div className="w-28 h-28 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white font-bold text-2xl">
-                    {member.name.split(' ').map(n => n[0]).join('')}
-                  </span>
+              <div key={index} className="bg-white border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow flex flex-col md:flex-row">
+                {/* Photo */}
+                <div className="md:w-64 shrink-0 relative" style={{ minHeight: '280px' }}>
+                  <Image
+                    src={member.image}
+                    alt={member.name}
+                    fill
+                    className={`object-cover ${member.imagePosition || ''}`}
+                  />
                 </div>
-                <h3 className="font-bold text-gray-900 mb-1" style={{ fontSize: '1.125rem' }}>
-                  {member.name}
-                </h3>
-                <p className="text-blue-600 font-medium text-sm mb-3">
-                  {member.role}
-                </p>
-                <p className="text-gray-600 text-sm leading-relaxed">
-                  {member.bio}
-                </p>
+                {/* Info */}
+                <div className="p-8 flex flex-col justify-center">
+                  <p className="text-red-600 font-semibold text-sm mb-1">{member.role}</p>
+                  <h3 className="font-bold text-gray-900 mb-4" style={{ fontSize: '1.5rem' }}>
+                    {member.name}
+                  </h3>
+                  <ul className="space-y-2">
+                    {member.bio.map((item, i) => (
+                      <li key={i} className="flex gap-3 text-gray-600 text-sm leading-relaxed">
+                        <svg className="w-3.5 h-3.5 shrink-0 mt-0.5" style={{ color: '#0a3a72' }} fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Mission of the Board */}
-      <section className="bg-gray-50 border-t border-gray-200">
-        <div style={{ maxWidth: '70rem', margin: '0 auto', padding: '4rem 2rem' }} className="text-center">
-          <h2 className="font-bold text-gray-900 mb-4" style={{ fontSize: '1.75rem' }}>
-            Supporting Our Mission
-          </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            Our Board of Trustees is responsible for fundraising and ensuring Bergen All-Stars has the resources to continue providing free sports programs and support services to our community. Every dollar raised goes directly toward our athletes and programs.
-          </p>
+      {/* Supporting Our Mission */}
+      <section className="bg-white">
+        <div style={{ maxWidth: '70rem', margin: '0 auto', padding: '4rem 2rem' }}>
+          <div className="relative rounded-2xl overflow-hidden" style={{ background: 'linear-gradient(135deg, #041c3a 0%, #0a3a72 50%, #083060 100%)' }}>
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-red-600" />
+            <div className="relative text-center" style={{ padding: '3.5rem 3rem' }}>
+              <div className="flex justify-center gap-3 mb-4">
+                <svg className="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg className="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <h2 className="font-bold text-white mb-2" style={{ fontSize: '0.875rem', letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+                Supporting Our Mission
+              </h2>
+              <div className="w-12 h-0.5 bg-red-500 mx-auto mb-6" />
+              <p className="leading-relaxed max-w-2xl mx-auto" style={{ fontSize: '1.1rem', color: '#c5d9f2' }}>
+                Our Board of Trustees is responsible for fundraising and ensuring Bergen All-Stars has the resources to continue providing free sports programs and support services to our community. Every dollar raised goes directly toward our athletes and programs.
+              </p>
+              <div className="flex justify-center gap-3 mt-6">
+                <svg className="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg className="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </div>
