@@ -44,7 +44,7 @@ const boardMembers = [
     role: 'Board Member',
     image: '/images/board/minjung-shim.jpg',
     bio: [
-      'General Manager, Bergen All-Stars Swim Team',
+      'Assistant LTP Coordinator, Bergen All-Stars Special Olympic Team',
       'Former Graphic & Packaging Designer',
       'Full-Time Caregiver for a Child with Autism',
     ],

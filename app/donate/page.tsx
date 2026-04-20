@@ -49,7 +49,7 @@ export default function Donate() {
                 To make a donation, please contact us directly. We appreciate every contribution, no matter the size.
               </p>
               <a
-                href="mailto:info@bergenallstars.org"
+                href="mailto:info@bergenallstars.com"
                 className="inline-block bg-red-600 hover:bg-red-700 text-white font-semibold transition-colors"
                 style={{ padding: '0.875rem 2rem', borderRadius: '0.5rem', fontSize: '1rem' }}
               >

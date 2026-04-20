@@ -1,29 +1,104 @@
-const coaches = [
+import Image from 'next/image';
+
+const coordinator = {
+  name: 'Chuljin "Chris" Kim',
+  role: 'Volunteer Coordinator',
+  image: '/images/coaches/chuljin-kim.jpg',
+  bio: `Chris Kim is currently serving as a volunteer coordinator for Bergen All-Stars Special Olympic Team for the last 2 years.
+
+For the past 30 years, he has served with "With Our Hands Together Inc.", a UN NGO's International Mission for the Disabled in New York City, as a supporter and board member, and he was recently appointed as chairperson for WOHT.
+
+He has volunteered as a basketball coach and softball coach for his town's (Fort Lee) recreational programs for over eight years before the COVID-19 outbreak.
+
+As a father of three daughters who are passionate about bowling — one in college and two current High School Varsity bowlers — he hopes their love for bowling will inspire others to participate more in Special Olympics bowling events.
+
+He currently serves as one of the committee members of Gospel Mission Church in Fairfield, NJ, as well as on their mission team. Over the past several years, he has served in various overseas missions, supporting disadvantaged people in Nepal, Guatemala, and Colombia.`,
+};
+
+type Coach = {
+  name: string;
+  sport: string | null;
+  image: string | null;
+  bio: string;
+};
+
+const coaches: Coach[] = [
   {
-    name: 'Coach Name',
-    sport: 'Bowling',
-    bio: 'Placeholder bio — describe this coach, their background, and why they volunteer.',
-    image: null,
+    name: 'Sabrina McClure',
+    sport: 'Equestrian',
+    image: '/images/coaches/sabrina-mcclure.png',
+    bio: `Sabrina McClure grew up in France, where her love of horses began at an early age. She has been teaching and coaching for almost 10 years and is dedicated to creating an inclusive, supportive environment for every rider.
+
+Sabrina teaches in both French and English and is known for her remarkable patience, steady encouragement, and her commitment to bringing out the best in every athlete. Her focus is on safety, confidence, and building strong partnerships between horse and rider.
+
+At Bergen Equestrian Center, Sabrina coaches several equestrian athletes who have gone on to earn Gold medals in the New Jersey Special Olympics — a reflection of the hard work, dedication, and teamwork they share.`,
   },
   {
-    name: 'Coach Name',
-    sport: 'Swimming',
-    bio: 'Placeholder bio — describe this coach, their background, and why they volunteer.',
-    image: null,
+    name: 'Yongkyu Cho',
+    sport: 'Golf',
+    image: '/images/coaches/yongkyu-cho.jpg',
+    bio: `Yongkyu Cho is a volunteer coach for the Bergen All-Stars golf team. He has been with our team for 3 years and acquired his teaching license in 2024. Mr. Cho also holds a position in the Korean-American Golf Association as an administrator and a director.`,
+  },
+  {
+    name: 'Hyeon In Cho',
+    sport: 'Golf',
+    image: '/images/coaches/hyeon-in-cho.jpg',
+    bio: `Hyeon In Cho has been a golf coach for Bergen All-Stars for the last 3 years. She also volunteered for unified players for 2 years at both regional and state games for Special Olympics New Jersey. Outside of coaching, she volunteers for her church, Chodae Presbyterian Church, as part of the women's fellowship on Wednesdays, teaches in Sunday School, and serves as an instructor for a knitting club.`,
+  },
+  {
+    name: 'Hyoun Kim',
+    sport: 'Swim',
+    image: '/images/coaches/hyoun-kim.jpg',
+    bio: `Coach Hyoun Kim serves as Swim Coach for Special Olympics of New Jersey and is dedicated to building confidence, inclusion, and personal growth through swimming. She has supported and raised three competitive USA swimmers and has been actively involved as a swim parent volunteer — assisting at practices and meets, supporting USA Swimming team activities, fundraising efforts, and event coordination.
+
+Beyond the pool, Hyoun is deeply committed to community service. She volunteers with Good Neighbor Ministry providing music programs for seniors, serves as a Preschool Ministry Teacher at Gospel Mission Church, and participates in Young Adults Ministry at Gospel Mission Church. She has also served on a mission trip to Cambodia, supporting local communities. Bilingual in Korean and English, Coach Hyoun is committed to creating a safe, encouraging, and respectful environment where every athlete can thrive.`,
+  },
+  {
+    name: 'John Lee',
+    sport: 'Swim',
+    image: '/images/coaches/john-lee.jpg',
+    bio: `Coach John honorably served in the Republic of Korea Marine Corps, including the Marine Corps Airborne (Parachute) Division, where he completed rigorous training in high-intensity operations requiring discipline, resilience, and strong team coordination. He is also a two-time full marathon finisher in Pohang, South Korea, demonstrating endurance, perseverance, and mental strength.
+
+He actively serves in the Young Adults Ministry at Gospel Mission Church, mentoring and supporting young adults in their spiritual growth and fellowship. John has participated in two mission trips to countries in Central Asia, engaging in cross-cultural outreach and hands-on community service projects. He has also volunteered in the Homeless Ministry in Baltimore, assisting with food distribution and outreach to underserved communities.
+
+Currently, Coach John serves as Co-Head Coach for Special Olympics alongside his wife, Hyoun, and remains deeply involved in his children's USA Swimming team — volunteering at team events, assisting at swim meets, and supporting fundraising and team activities. Through military service, athletics, ministry, and coaching, he is committed to leading with integrity, serving with compassion, and creating a positive and encouraging environment for every athlete he supports.`,
   },
 ];
+
+function initials(name: string) {
+  return name
+    .replace(/"[^"]*"/g, '')
+    .split(' ')
+    .filter(Boolean)
+    .map((n) => n[0])
+    .join('')
+    .slice(0, 2)
+    .toUpperCase();
+}
 
 export default function Coaches() {
   return (
     <div className="bg-white">
       {/* Hero */}
-      <section className="bg-gradient-to-br from-blue-600 to-blue-800 text-white">
+      <section
+        style={{
+          background:
+            'linear-gradient(135deg, #041c3a 0%, #0a3a72 50%, #083060 100%)',
+        }}
+        className="text-white"
+      >
         <div style={{ maxWidth: '70rem', margin: '0 auto', padding: '4rem 2rem' }}>
+          <div className="flex gap-2 mb-4">
+            <svg className="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
+            <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
+            <svg className="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
+          </div>
           <h1 className="font-bold text-white mb-4" style={{ fontSize: '2.75rem', lineHeight: '1.15' }}>
-            Our Volunteer Coaches
+            Our Volunteer Coaches & Coordinator
           </h1>
-          <p className="text-blue-100 leading-relaxed" style={{ fontSize: '1.15rem', maxWidth: '600px' }}>
-            Our programs would not be possible without the selfless dedication of our volunteer coaches. They donate their time, energy, and expertise to make a real difference in the lives of our athletes — all completely unpaid.
+          <div className="w-16 h-1 bg-red-500 mb-5" />
+          <p className="leading-relaxed" style={{ fontSize: '1.15rem', maxWidth: '640px', color: '#e5e7eb' }}>
+            Our programs would not be possible without the selfless dedication of our volunteer coordinator and coaches. They donate their time, energy, and expertise to make a real difference in the lives of our athletes — all completely unpaid.
           </p>
         </div>
       </section>
@@ -32,7 +107,7 @@ export default function Coaches() {
       <section className="bg-blue-50 border-b border-blue-100">
         <div style={{ maxWidth: '70rem', margin: '0 auto', padding: '2.5rem 2rem' }} className="text-center">
           <p className="text-blue-800 font-semibold" style={{ fontSize: '1.25rem' }}>
-            Thank you to every one of our coaches for volunteering your time and heart.
+            Thank you to every one of our coaches and our coordinator for volunteering your time and heart.
           </p>
           <p className="text-blue-600 text-sm mt-1">
             Bergen All-Stars is built on your generosity.
@@ -42,27 +117,143 @@ export default function Coaches() {
 
       {/* Coaches Grid */}
       <section className="bg-white">
-        <div style={{ maxWidth: '70rem', margin: '0 auto', padding: '4rem 2rem' }}>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div style={{ maxWidth: '70rem', margin: '0 auto', padding: '4rem 2rem 2rem' }}>
+          <div className="mb-8">
+            <p className="text-xs font-semibold uppercase tracking-widest text-red-600 mb-2">
+              Volunteer Coaches
+            </p>
+            <h2 className="font-bold text-gray-900" style={{ fontSize: '1.75rem' }}>
+              Meet Our Coaches
+            </h2>
+            <div className="w-12 h-0.5 bg-red-500 mt-3" />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {coaches.map((coach, index) => (
-              <div key={index} className="bg-white rounded-xl border border-gray-200 p-8 text-center hover:shadow-lg transition-shadow">
-                {/* Headshot placeholder */}
-                <div className="w-28 h-28 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-white font-bold text-2xl">
-                    {coach.name.split(' ').map(n => n[0]).join('')}
-                  </span>
+              <div
+                key={index}
+                className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-shadow flex flex-col"
+              >
+                {/* Headshot */}
+                <div className="flex flex-col items-center mb-4">
+                  {coach.image ? (
+                    <div
+                      className="relative rounded-full overflow-hidden mb-4"
+                      style={{ width: '7.5rem', height: '7.5rem' }}
+                    >
+                      <Image
+                        src={coach.image}
+                        alt={coach.name}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <div
+                      className="rounded-full flex items-center justify-center mb-4"
+                      style={{
+                        width: '7.5rem',
+                        height: '7.5rem',
+                        background:
+                          'linear-gradient(135deg, #0a3a72 0%, #083060 100%)',
+                      }}
+                    >
+                      <span className="text-white font-bold" style={{ fontSize: '1.75rem' }}>
+                        {initials(coach.name)}
+                      </span>
+                    </div>
+                  )}
+                  <h3 className="font-bold text-gray-900 mb-1 text-center" style={{ fontSize: '1.15rem' }}>
+                    {coach.name}
+                  </h3>
+                  <p className="text-red-600 font-medium text-xs uppercase tracking-wide">
+                    {coach.sport ? `${coach.sport} Coach` : 'Volunteer Coach'}
+                  </p>
                 </div>
-                <h3 className="font-bold text-gray-900 mb-1" style={{ fontSize: '1.25rem' }}>
-                  {coach.name}
-                </h3>
-                <p className="text-blue-600 font-medium text-sm mb-3">
-                  {coach.sport} Coach
-                </p>
-                <p className="text-gray-600 text-sm leading-relaxed">
+
+                {/* Bio */}
+                <p
+                  className="text-gray-600 text-sm leading-relaxed"
+                  style={{ whiteSpace: 'pre-line' }}
+                >
                   {coach.bio}
                 </p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Coordinator */}
+      <section className="bg-white">
+        <div style={{ maxWidth: '70rem', margin: '0 auto', padding: '2rem 2rem 4rem' }}>
+          <div className="mb-8">
+            <p className="text-xs font-semibold uppercase tracking-widest text-red-600 mb-2">
+              Program Coordinator
+            </p>
+            <h2 className="font-bold text-gray-900" style={{ fontSize: '1.75rem' }}>
+              Meet Our Coordinator
+            </h2>
+            <div className="w-12 h-0.5 bg-red-500 mt-3" />
+          </div>
+
+          <div className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-shadow">
+            <div className="flex flex-col md:flex-row items-center md:items-start gap-8 p-8">
+              {/* Headshot */}
+              {coordinator.image ? (
+                <div
+                  className="relative shrink-0 rounded-full overflow-hidden"
+                  style={{ width: '10rem', height: '10rem' }}
+                >
+                  <Image
+                    src={coordinator.image}
+                    alt={coordinator.name}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              ) : (
+                <div
+                  className="shrink-0 rounded-full flex items-center justify-center"
+                  style={{
+                    width: '10rem',
+                    height: '10rem',
+                    background:
+                      'linear-gradient(135deg, #041c3a 0%, #0a3a72 60%, #083060 100%)',
+                  }}
+                >
+                  <span className="text-white font-bold" style={{ fontSize: '2.5rem' }}>
+                    {initials(coordinator.name)}
+                  </span>
+                </div>
+              )}
+
+              {/* Info */}
+              <div className="flex-1 text-center md:text-left">
+                <h3 className="font-bold text-gray-900 mb-1" style={{ fontSize: '1.5rem' }}>
+                  {coordinator.name}
+                </h3>
+                <p className="text-red-600 font-semibold text-sm uppercase tracking-wide mb-4">
+                  {coordinator.role}
+                </p>
+                <p
+                  className="text-gray-600 leading-relaxed mb-5"
+                  style={{ whiteSpace: 'pre-line' }}
+                >
+                  {coordinator.bio}
+                </p>
+                <a
+                  href="mailto:info@bergenallstars.com"
+                  className="inline-flex items-center gap-2 text-sm font-semibold hover:underline"
+                  style={{ color: '#0a3a72' }}
+                >
+                  <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                  Contact the Coordinator
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -77,8 +268,8 @@ export default function Coaches() {
             We&apos;re always looking for passionate volunteers to coach our athletes. No prior coaching experience is required — just a willingness to make a difference.
           </p>
           <a
-            href="mailto:info@bergenallstars.org"
-            className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold transition-colors"
+            href="mailto:info@bergenallstars.com"
+            className="inline-block bg-red-600 hover:bg-red-700 text-white font-semibold transition-colors"
             style={{ padding: '0.875rem 2rem', borderRadius: '0.5rem' }}
           >
             Reach Out to Volunteer

@@ -24,8 +24,8 @@ export default function Contact() {
               <div className="space-y-6">
                 <div>
                   <p className="text-gray-500 text-sm mb-1">Email</p>
-                  <a href="mailto:info@bergenallstars.org" className="text-blue-600 hover:text-blue-800 font-medium transition-colors">
-                    info@bergenallstars.org
+                  <a href="mailto:info@bergenallstars.com" className="text-blue-600 hover:text-blue-800 font-medium transition-colors">
+                    info@bergenallstars.com
                   </a>
                 </div>
                 <div>

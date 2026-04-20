@@ -45,9 +45,10 @@ export default function Navbar() {
   const navLinks = [
     { href: '/', label: 'Home' },
     { href: '/programs', label: 'Programs' },
+    { href: '/events', label: 'Events' },
     { href: '/coaches', label: 'Our Coaches' },
     { href: '/board', label: 'Board' },
-    { href: '/about', label: 'About Us' },
+    { href: '/donors', label: 'Donors' },
   ];
 
   return (
@@ -61,7 +62,7 @@ export default function Navbar() {
       {/* Red accent line at bottom */}
       <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-red-600" />
 
-      <div style={{ maxWidth: '55rem', margin: '0 auto', paddingLeft: '1rem', paddingRight: '1rem' }}>
+      <div style={{ maxWidth: '70rem', margin: '0 auto', paddingLeft: '1rem', paddingRight: '1rem' }}>
         <div className="flex items-center justify-between transition-all duration-300" style={{ height: isScrolled ? '4rem' : '5rem' }}>
           {/* Logo/Brand */}
           <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-all duration-300">
@@ -76,7 +77,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-6 relative">
+          <div className="hidden md:flex items-center gap-5 relative">
             {navLinks.map((link, index) => {
               const isActive = pathname === link.href;
               return (

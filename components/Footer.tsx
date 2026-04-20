@@ -38,6 +38,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/events" className="text-blue-200 hover:text-white transition-colors text-sm">
+                  Events
+                </Link>
+              </li>
+              <li>
                 <Link href="/coaches" className="text-blue-200 hover:text-white transition-colors text-sm">
                   Our Coaches
                 </Link>
@@ -48,8 +53,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="text-blue-200 hover:text-white transition-colors text-sm">
-                  About Us
+                <Link href="/donors" className="text-blue-200 hover:text-white transition-colors text-sm">
+                  Donors
                 </Link>
               </li>
               <li>
@@ -67,8 +72,8 @@ export default function Footer() {
               <p>40 Stevenson Lane</p>
               <p>Upper Saddle River, NJ 07458</p>
               <p className="mt-4">
-                <a href="mailto:info@bergenallstars.org" className="hover:text-white transition-colors">
-                  info@bergenallstars.org
+                <a href="mailto:info@bergenallstars.com" className="hover:text-white transition-colors">
+                  info@bergenallstars.com
                 </a>
               </p>
             </address>
