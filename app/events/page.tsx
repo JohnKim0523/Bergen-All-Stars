@@ -113,6 +113,7 @@ export default function Events() {
                             src={img}
                             alt={`${event.title}${images.length > 1 ? ` (${i + 1} of ${images.length})` : ''}`}
                             fill
+                            quality={100}
                             className="object-contain"
                             sizes={
                               images.length > 1
@@ -132,6 +133,7 @@ export default function Events() {
                         src={images[0]}
                         alt={event.title}
                         fill
+                        quality={100}
                         className="object-cover"
                         sizes="(max-width: 768px) 100vw, 18rem"
                       />

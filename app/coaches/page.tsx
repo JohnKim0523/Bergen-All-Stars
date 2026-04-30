@@ -25,13 +25,6 @@ As a father of three daughters who are passionate about bowling — one in colle
 
 He currently serves as one of the committee members of Gospel Mission Church in Fairfield, NJ, as well as on their mission team. Over the past several years, he has served in various overseas missions, supporting disadvantaged people in Nepal, Guatemala, and Colombia.`,
   },
-  {
-    name: 'Min Jung Shim',
-    role: 'Assistant LTP Coordinator',
-    image: '/images/coordinators/min-jung-shim.jpg',
-    email: 'mjshim612@gmail.com',
-    phone: '646-341-3732',
-  },
 ];
 
 type Coach = {
@@ -82,22 +75,6 @@ Beyond the pool, Hyoun is deeply committed to community service. She volunteers 
 He actively serves in the Young Adults Ministry at Gospel Mission Church, mentoring and supporting young adults in their spiritual growth and fellowship. John has participated in two mission trips to countries in Central Asia, engaging in cross-cultural outreach and hands-on community service projects. He has also volunteered in the Homeless Ministry in Baltimore, assisting with food distribution and outreach to underserved communities.
 
 Currently, Coach John serves as Co-Head Coach for Special Olympics alongside his wife, Hyoun, and remains deeply involved in his children's USA Swimming team — volunteering at team events, assisting at swim meets, and supporting fundraising and team activities. Through military service, athletics, ministry, and coaching, he is committed to leading with integrity, serving with compassion, and creating a positive and encouraging environment for every athlete he supports.`,
-  },
-  {
-    name: 'Hyo Lee',
-    sport: 'Golf',
-    role: 'Head Golf Coach',
-    image: '/images/coaches/hyo-lee.jpg',
-  },
-  {
-    name: 'Sook Lim',
-    sport: 'Equestrian',
-    image: '/images/coordinators/sook-lim.jpg',
-  },
-  {
-    name: 'Sonya Choi',
-    sport: 'Bowling',
-    image: '/images/coordinators/sonya-choi.jpg',
   },
 ];
 
@@ -196,8 +173,8 @@ export default function Coaches() {
                         <div
                           className="relative overflow-hidden bg-white"
                           style={{
-                            width: '13rem',
-                            height: '16rem',
+                            width: '15rem',
+                            height: '18.5rem',
                             borderRadius: '1rem',
                             border: '3px solid white',
                           }}
@@ -206,6 +183,8 @@ export default function Coaches() {
                             src={coach.image}
                             alt={coach.name}
                             fill
+                            quality={100}
+                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 15rem"
                             className="object-cover"
                           />
                         </div>
@@ -213,8 +192,8 @@ export default function Coaches() {
                         <div
                           className="flex items-center justify-center"
                           style={{
-                            width: '13rem',
-                            height: '16rem',
+                            width: '15rem',
+                            height: '18.5rem',
                             borderRadius: '1rem',
                             border: '3px solid white',
                             background:
@@ -265,10 +244,10 @@ export default function Coaches() {
         <div style={{ maxWidth: '70rem', margin: '0 auto', padding: '2rem 2rem 4rem' }}>
           <div className="mb-8">
             <p className="text-xs font-semibold uppercase tracking-widest text-red-600 mb-2">
-              Program Coordinators
+              Program Coordinator
             </p>
             <h2 className="font-bold text-gray-900" style={{ fontSize: '1.75rem' }}>
-              Meet Our Coordinators
+              Meet Our Coordinator
             </h2>
             <div className="w-12 h-0.5 bg-red-500 mt-3" />
           </div>
@@ -283,27 +262,30 @@ export default function Coaches() {
                   {/* Headshot */}
                   {coord.image ? (
                     <div
-                      className="relative shrink-0 rounded-full overflow-hidden"
-                      style={{ width: '8rem', height: '8rem' }}
+                      className="relative shrink-0 overflow-hidden"
+                      style={{ width: '10rem', height: '12rem', borderRadius: '0.875rem' }}
                     >
                       <Image
                         src={coord.image}
                         alt={coord.name}
                         fill
+                        quality={100}
+                        sizes="11rem"
                         className="object-cover"
                       />
                     </div>
                   ) : (
                     <div
-                      className="shrink-0 rounded-full flex items-center justify-center"
+                      className="shrink-0 flex items-center justify-center"
                       style={{
-                        width: '8rem',
-                        height: '8rem',
+                        width: '10rem',
+                        height: '12rem',
+                        borderRadius: '0.875rem',
                         background:
                           'linear-gradient(135deg, #041c3a 0%, #0a3a72 60%, #083060 100%)',
                       }}
                     >
-                      <span className="text-white font-bold" style={{ fontSize: '2rem' }}>
+                      <span className="text-white font-bold" style={{ fontSize: '2.25rem' }}>
                         {initials(coord.name)}
                       </span>
                     </div>

@@ -14,6 +14,7 @@ const bannerImages = [
   '/images/banners/banner9.jpg',
   '/images/banners/banner10.jpg',
   '/images/banners/banner11.jpg',
+  '/images/banners/banner12.jpg',
 ];
 
 export default function HeroSlideshow() {

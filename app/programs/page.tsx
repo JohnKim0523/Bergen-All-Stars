@@ -6,12 +6,15 @@ type Contact = {
   title: string;
   email?: string;
   phone?: string;
+  image?: string;
+  imagePosition?: string;
 };
 
 const defaultCoordinator: Contact = {
   name: 'Chuljin "Chris" Kim',
   title: 'Volunteer Coordinator',
   email: 'info@bergenallstars.com',
+  image: '/images/coaches/chuljin-kim.jpg',
 };
 
 type Program = {
@@ -42,6 +45,8 @@ const programs: Program[] = [
       title: 'Assistant LTP Coordinator',
       email: 'mjshim612@gmail.com',
       phone: '646-341-3732',
+      image: '/images/coordinators/min-jung-shim.jpg',
+      imagePosition: 'center 35%',
     },
   },
   {
@@ -59,6 +64,8 @@ const programs: Program[] = [
       title: 'Coach',
       email: 'sook@thelims.com',
       phone: '201-741-6967',
+      image: '/images/coordinators/sook-lim.jpg',
+      imagePosition: '100% top',
     },
   },
   {
@@ -75,6 +82,8 @@ const programs: Program[] = [
       name: 'Sonya Choi',
       title: 'Coach',
       phone: '201-233-0952',
+      image: '/images/coordinators/sonya-choi.jpg',
+      imagePosition: 'center 15%',
     },
   },
   {
@@ -92,6 +101,7 @@ const programs: Program[] = [
       title: 'Head Coach',
       email: 'deb.lee115@gmail.com',
       phone: '(201) 394-2641',
+      image: '/images/coaches/hyo-lee.jpg',
     },
   },
 ];
@@ -129,11 +139,31 @@ function ProgramMeta({ program }: { program: Program }) {
       )}
 
       <div className="border-t border-gray-100 pt-5">
-        <p className="text-xs font-semibold uppercase tracking-wide text-red-600 mb-2">
+        <p className="text-xs font-semibold uppercase tracking-wide text-red-600 mb-3">
           {program.contact ? 'Program Contact' : 'Contact Our Coordinator'}
         </p>
-        <p className="text-gray-900 font-bold text-lg">{contact.name}</p>
-        <p className="text-gray-500 text-sm mb-3">{contact.title}</p>
+        <div className="flex items-center gap-3 mb-3">
+          {contact.image && (
+            <div
+              className="relative shrink-0 rounded-full overflow-hidden"
+              style={{ width: '4.5rem', height: '4.5rem' }}
+            >
+              <Image
+                src={contact.image}
+                alt={contact.name}
+                fill
+                quality={100}
+                sizes="5rem"
+                className="object-cover"
+                style={{ objectPosition: contact.imagePosition ?? 'top' }}
+              />
+            </div>
+          )}
+          <div className="min-w-0">
+            <p className="text-gray-900 font-bold text-lg leading-tight">{contact.name}</p>
+            <p className="text-gray-500 text-sm">{contact.title}</p>
+          </div>
+        </div>
         <div className="flex flex-col gap-2">
           {contact.email && (
             <a
@@ -178,14 +208,15 @@ function ProgramCard({ program }: { program: Program }) {
   // Layout 1: split with image on the LEFT (used for portrait images — swim)
   if (program.layout === 'split-left' && program.image) {
     return (
-      <div className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-shadow grid grid-cols-1 md:grid-cols-[minmax(0,18rem)_minmax(0,1fr)]">
+      <div className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-shadow grid grid-cols-1 md:grid-cols-[minmax(0,24rem)_minmax(0,1fr)]">
         <div className="bg-gray-100 flex items-center justify-center p-4">
           <Image
             src={program.image}
             alt={program.name}
             width={program.imageWidth!}
             height={program.imageHeight!}
-            className="w-full h-auto max-h-[520px] object-contain rounded"
+            quality={100}
+            className="w-full h-auto max-h-[640px] object-contain rounded"
           />
         </div>
         <div className="p-8 flex flex-col justify-center">
@@ -212,6 +243,7 @@ function ProgramCard({ program }: { program: Program }) {
             alt={program.name}
             width={program.imageWidth!}
             height={program.imageHeight!}
+            quality={100}
             className="w-full h-auto max-h-[420px] object-contain rounded"
           />
         </div>
@@ -229,6 +261,7 @@ function ProgramCard({ program }: { program: Program }) {
             alt={program.name}
             width={program.imageWidth!}
             height={program.imageHeight!}
+            quality={100}
             className="w-full h-auto max-h-[500px] object-contain rounded"
           />
         </div>

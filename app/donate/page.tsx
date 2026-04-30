@@ -161,19 +161,20 @@ export default function Donate() {
                     </p>
                   </div>
                 </div>
-                <div className="space-y-3">
-                  <div className="bg-white border border-gray-200 rounded-lg px-4 py-3">
-                    <p className="text-gray-500 text-xs mb-1">Bank</p>
-                    <p className="text-gray-900 text-sm font-medium">Hanmi Bank</p>
-                  </div>
-                  <CopyField label="Routing number" value="022039399" />
-                  <CopyField label="Account number" value="55245346" />
-                  <div className="bg-white border border-gray-200 rounded-lg px-4 py-3">
-                    <p className="text-gray-500 text-xs mb-1">Account name</p>
-                    <p className="text-gray-900 text-sm font-medium">
-                      Bergen All-Stars, A NJ Nonprofit Corporation
-                    </p>
-                  </div>
+                <div className="bg-gray-50 border border-gray-200 rounded-lg px-5 py-4">
+                  <p className="text-gray-700 text-sm leading-relaxed mb-3">
+                    For ACH or wire transfer details, please reach out to us directly. We&apos;ll send you our Hanmi Bank routing and account information securely.
+                  </p>
+                  <a
+                    href="mailto:info@bergenallstars.com?subject=ACH%2FWire%20transfer%20details%20request"
+                    className="inline-flex items-center gap-2 text-sm font-semibold hover:underline"
+                    style={{ color: '#0a3a72' }}
+                  >
+                    <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    Email us for ACH / wire details
+                  </a>
                 </div>
               </div>
             </div>

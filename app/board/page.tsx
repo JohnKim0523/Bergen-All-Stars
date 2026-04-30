@@ -42,7 +42,7 @@ const boardMembers = [
   {
     name: 'Min Jung Shim',
     role: 'Board Member',
-    image: '/images/coordinators/min-jung-shim.jpg',
+    image: '/images/board/minjung-shim.jpg',
     bio: [
       'Assistant LTP Coordinator, Bergen All-Stars Special Olympic Team',
       'Former Graphic & Packaging Designer',
@@ -87,6 +87,8 @@ export default function Board() {
                       src={member.image}
                       alt={member.name}
                       fill
+                      quality={100}
+                      sizes="4.5rem"
                       className={`object-cover ${member.imagePosition || ''}`}
                     />
                   </div>
