@@ -1,4 +1,37 @@
-import Link from 'next/link';
+'use client';
+
+import { useState } from 'react';
+import Image from 'next/image';
+
+function CopyField({ label, value }: { label: string; value: string }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      // clipboard API unavailable — value is still selectable manually
+    }
+  };
+
+  return (
+    <div className="flex items-center justify-between gap-3 bg-white border border-gray-200 rounded-lg px-4 py-3">
+      <div className="min-w-0">
+        <p className="text-gray-500 text-xs mb-1">{label}</p>
+        <p className="font-mono text-gray-900 text-base break-all">{value}</p>
+      </div>
+      <button
+        type="button"
+        onClick={handleCopy}
+        className="shrink-0 text-blue-600 hover:text-blue-800 text-sm font-medium transition-colors"
+      >
+        {copied ? 'Copied!' : 'Copy'}
+      </button>
+    </div>
+  );
+}
 
 export default function Donate() {
   return (
@@ -15,9 +48,9 @@ export default function Donate() {
         </div>
       </section>
 
-      {/* Donation Info */}
+      {/* Where Your Money Goes */}
       <section className="bg-white">
-        <div style={{ maxWidth: '70rem', margin: '0 auto', padding: '4rem 2rem' }}>
+        <div style={{ maxWidth: '70rem', margin: '0 auto', padding: '4rem 2rem 2rem' }}>
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="font-bold text-gray-900 mb-4" style={{ fontSize: '1.75rem' }}>
               Where Your Money Goes
@@ -26,7 +59,7 @@ export default function Donate() {
               Bergen All-Stars is a registered NJ nonprofit. 100% of donations go directly toward funding our sports programs, equipment, facility costs, and supporting our athletes.
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
               <div className="bg-blue-50 rounded-xl p-6">
                 <p className="text-blue-700 font-bold text-2xl mb-2">Equipment</p>
                 <p className="text-gray-600 text-sm">Sports gear and supplies for all programs</p>
@@ -40,22 +73,123 @@ export default function Donate() {
                 <p className="text-gray-600 text-sm">Tournaments, outings, and celebrations</p>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
 
-            <div className="bg-gray-50 rounded-2xl p-8">
-              <p className="text-gray-900 font-semibold mb-2" style={{ fontSize: '1.25rem' }}>
-                Ready to Donate?
-              </p>
-              <p className="text-gray-600 text-sm mb-6">
-                To make a donation, please contact us directly. We appreciate every contribution, no matter the size.
+      {/* Ways to Give */}
+      <section className="bg-gray-50">
+        <div style={{ maxWidth: '70rem', margin: '0 auto', padding: '4rem 2rem' }}>
+          <div className="max-w-3xl mx-auto">
+            <h2 className="font-bold text-gray-900 mb-2 text-center" style={{ fontSize: '1.75rem' }}>
+              Ways to Give
+            </h2>
+            <p className="text-gray-600 text-center mb-10">
+              Choose whichever method is easiest for you.
+            </p>
+
+            <div className="space-y-6">
+              {/* Zelle */}
+              <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+                <div className="flex items-start gap-4 mb-5">
+                  <div className="bg-purple-100 text-purple-700 rounded-lg px-3 py-2 font-bold text-sm shrink-0">
+                    Zelle
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-bold text-gray-900 mb-1" style={{ fontSize: '1.15rem' }}>
+                      Send via Zelle
+                    </h3>
+                    <p className="text-gray-600 text-sm">
+                      Fastest and free. Scan the QR code below with your bank&apos;s Zelle app.
+                    </p>
+                  </div>
+                </div>
+                <div className="flex justify-center">
+                  <Image
+                    src="/images/zelle-qr.png"
+                    alt="Bergen All-Stars Zelle QR code"
+                    width={605}
+                    height={466}
+                    className="w-full h-auto max-w-sm rounded-lg"
+                    priority
+                  />
+                </div>
+              </div>
+
+              {/* Check */}
+              <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+                <div className="flex items-start gap-4 mb-5">
+                  <div className="bg-green-100 text-green-700 rounded-lg px-3 py-2 font-bold text-sm shrink-0">
+                    Check
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-bold text-gray-900 mb-1" style={{ fontSize: '1.15rem' }}>
+                      Mail a Check
+                    </h3>
+                    <p className="text-gray-600 text-sm">
+                      Make checks payable to the organization and mail to the address below.
+                    </p>
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div className="bg-white border border-gray-200 rounded-lg px-4 py-3">
+                    <p className="text-gray-500 text-xs mb-1">Payable to</p>
+                    <p className="text-gray-900 text-sm font-medium">
+                      Bergen All-Stars, A NJ Nonprofit Corporation
+                    </p>
+                  </div>
+                  <div className="bg-white border border-gray-200 rounded-lg px-4 py-3">
+                    <p className="text-gray-500 text-xs mb-1">Mail to</p>
+                    <p className="text-gray-900 text-sm font-medium">40 Stevenson Lane</p>
+                    <p className="text-gray-900 text-sm font-medium">Upper Saddle River, NJ 07458</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bank Transfer / ACH */}
+              <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+                <div className="flex items-start gap-4 mb-5">
+                  <div className="bg-blue-100 text-blue-700 rounded-lg px-3 py-2 font-bold text-sm shrink-0">
+                    ACH
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-bold text-gray-900 mb-1" style={{ fontSize: '1.15rem' }}>
+                      Bank Transfer (ACH / Wire)
+                    </h3>
+                    <p className="text-gray-600 text-sm">
+                      Send directly to our Hanmi Bank account.
+                    </p>
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  <div className="bg-white border border-gray-200 rounded-lg px-4 py-3">
+                    <p className="text-gray-500 text-xs mb-1">Bank</p>
+                    <p className="text-gray-900 text-sm font-medium">Hanmi Bank</p>
+                  </div>
+                  <CopyField label="Routing number" value="022039399" />
+                  <CopyField label="Account number" value="55245346" />
+                  <div className="bg-white border border-gray-200 rounded-lg px-4 py-3">
+                    <p className="text-gray-500 text-xs mb-1">Account name</p>
+                    <p className="text-gray-900 text-sm font-medium">
+                      Bergen All-Stars, A NJ Nonprofit Corporation
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Questions */}
+            <div className="text-center mt-10">
+              <p className="text-gray-600 text-sm mb-3">
+                Questions about donating, or want to give another way?
               </p>
               <a
                 href="mailto:info@bergenallstars.com"
-                className="inline-block bg-red-600 hover:bg-red-700 text-white font-semibold transition-colors"
-                style={{ padding: '0.875rem 2rem', borderRadius: '0.5rem', fontSize: '1rem' }}
+                className="text-blue-600 hover:text-blue-800 font-medium transition-colors text-sm"
               >
-                Contact Us to Donate
+                Email info@bergenallstars.com
               </a>
-              <p className="text-gray-500 text-xs mt-4">
+              <p className="text-gray-500 text-xs mt-6">
                 Bergen All-Stars, A NJ Nonprofit Corporation &middot; EIN: 0451042476
               </p>
             </div>

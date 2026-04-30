@@ -1,7 +1,14 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-const coordinator = {
+type Contact = {
+  name: string;
+  title: string;
+  email?: string;
+  phone?: string;
+};
+
+const defaultCoordinator: Contact = {
   name: 'Chuljin "Chris" Kim',
   title: 'Volunteer Coordinator',
   email: 'info@bergenallstars.com',
@@ -16,6 +23,7 @@ type Program = {
   description: string;
   schedule: string | null;
   location: string | null;
+  contact?: Contact;
 };
 
 const programs: Program[] = [
@@ -29,6 +37,12 @@ const programs: Program[] = [
       'Our swim program focuses on building water confidence, technique, and fitness for athletes of all skill levels. Athletes train weekly and compete in Special Olympics of New Jersey events.',
     schedule: 'Saturdays at 3:00 PM',
     location: 'Ridgewood YMCA Pool, Ridgewood, NJ',
+    contact: {
+      name: 'Min Jung Shim',
+      title: 'Assistant LTP Coordinator',
+      email: 'mjshim612@gmail.com',
+      phone: '646-341-3732',
+    },
   },
   {
     name: 'Equestrian',
@@ -40,6 +54,12 @@ const programs: Program[] = [
       'Our equestrian program teaches athletes horseback riding in a safe, supportive environment — focusing on safety, confidence, and building strong partnerships between horse and rider. Our riders have gone on to earn Gold medals at the New Jersey Special Olympics.',
     schedule: null,
     location: 'Bergen Equestrian Center',
+    contact: {
+      name: 'Sook Lim',
+      title: 'Coach',
+      email: 'sook@thelims.com',
+      phone: '201-741-6967',
+    },
   },
   {
     name: 'Bowling Team',
@@ -49,21 +69,35 @@ const programs: Program[] = [
     layout: 'banner',
     description:
       'Our bowling program brings athletes together for weekly practice and competitive play in a fun, supportive environment.',
-    schedule: null,
-    location: null,
+    schedule: 'Saturdays at 10:00 AM',
+    location: 'Bowler City, Hackensack, NJ',
+    contact: {
+      name: 'Sonya Choi',
+      title: 'Coach',
+      phone: '201-233-0952',
+    },
   },
   {
     name: 'Golf Team',
-    image: null,
-    layout: 'text-only',
+    image: '/images/programs/golf-team/golf1.jpg',
+    imageWidth: 2048,
+    imageHeight: 1536, // 4:3 landscape group shot
+    layout: 'banner',
     description:
       'Our golf program introduces athletes to the fundamentals of golf in an encouraging, team-oriented setting.',
-    schedule: null,
-    location: null,
+    schedule: 'Tuesdays from 4:30 – 6:30 PM',
+    location: 'Closter Golf Range, 153 Homans Avenue, Closter, NJ',
+    contact: {
+      name: 'Hyo Lee',
+      title: 'Head Coach',
+      email: 'deb.lee115@gmail.com',
+      phone: '(201) 394-2641',
+    },
   },
 ];
 
 function ProgramMeta({ program }: { program: Program }) {
+  const contact = program.contact ?? defaultCoordinator;
   return (
     <>
       {(program.schedule || program.location) && (
@@ -96,20 +130,36 @@ function ProgramMeta({ program }: { program: Program }) {
 
       <div className="border-t border-gray-100 pt-5">
         <p className="text-xs font-semibold uppercase tracking-wide text-red-600 mb-2">
-          Contact Our Coordinator
+          {program.contact ? 'Program Contact' : 'Contact Our Coordinator'}
         </p>
-        <p className="text-gray-900 font-bold text-lg">{coordinator.name}</p>
-        <p className="text-gray-500 text-sm mb-3">{coordinator.title}</p>
-        <a
-          href={`mailto:${coordinator.email}`}
-          className="inline-flex items-center gap-2 text-sm hover:underline"
-          style={{ color: '#0a3a72' }}
-        >
-          <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-          </svg>
-          {coordinator.email}
-        </a>
+        <p className="text-gray-900 font-bold text-lg">{contact.name}</p>
+        <p className="text-gray-500 text-sm mb-3">{contact.title}</p>
+        <div className="flex flex-col gap-2">
+          {contact.email && (
+            <a
+              href={`mailto:${contact.email}`}
+              className="inline-flex items-center gap-2 text-sm hover:underline"
+              style={{ color: '#0a3a72' }}
+            >
+              <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              {contact.email}
+            </a>
+          )}
+          {contact.phone && (
+            <a
+              href={`tel:${contact.phone.replace(/[^\d+]/g, '')}`}
+              className="inline-flex items-center gap-2 text-sm hover:underline"
+              style={{ color: '#0a3a72' }}
+            >
+              <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h2.28a2 2 0 011.94 1.515l.766 3.063a2 2 0 01-.5 1.872l-1.13 1.13a11.042 11.042 0 005.516 5.516l1.13-1.13a2 2 0 011.872-.5l3.063.766A2 2 0 0121 16.72V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              {contact.phone}
+            </a>
+          )}
+        </div>
       </div>
     </>
   );

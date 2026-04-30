@@ -3,7 +3,7 @@ import Image from 'next/image';
 const boardMembers = [
   {
     name: 'Judy Shin',
-    role: 'Board President',
+    role: 'Board Member',
     image: '/images/board/judy-shin.png',
     imagePosition: 'object-[center_20%]',
     bio: [
@@ -40,9 +40,9 @@ const boardMembers = [
     ],
   },
   {
-    name: 'Minjung Shim',
+    name: 'Min Jung Shim',
     role: 'Board Member',
-    image: '/images/board/minjung-shim.jpg',
+    image: '/images/coordinators/min-jung-shim.jpg',
     bio: [
       'Assistant LTP Coordinator, Bergen All-Stars Special Olympic Team',
       'Former Graphic & Packaging Designer',
@@ -74,34 +74,37 @@ export default function Board() {
 
       {/* Board Members */}
       <section className="bg-gray-50">
-        <div style={{ maxWidth: '70rem', margin: '0 auto', padding: '4rem 2rem' }}>
-          <div className="flex flex-col gap-6">
+        <div style={{ maxWidth: '70rem', margin: '0 auto', padding: '3rem 2rem' }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {boardMembers.map((member, index) => (
-              <div key={index} className="bg-white border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow flex flex-col md:flex-row">
-                {/* Photo */}
-                <div className="md:w-64 shrink-0 relative" style={{ minHeight: '280px' }}>
-                  <Image
-                    src={member.image}
-                    alt={member.name}
-                    fill
-                    className={`object-cover ${member.imagePosition || ''}`}
-                  />
+              <div
+                key={index}
+                className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow p-5 flex flex-col"
+              >
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="relative shrink-0 rounded-full overflow-hidden" style={{ width: '4.5rem', height: '4.5rem' }}>
+                    <Image
+                      src={member.image}
+                      alt={member.name}
+                      fill
+                      className={`object-cover ${member.imagePosition || ''}`}
+                    />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-red-600 font-semibold text-xs uppercase tracking-wide mb-0.5">{member.role}</p>
+                    <h3 className="font-bold text-gray-900 leading-tight" style={{ fontSize: '1.05rem' }}>
+                      {member.name}
+                    </h3>
+                  </div>
                 </div>
-                {/* Info */}
-                <div className="p-8 flex flex-col justify-center">
-                  <p className="text-red-600 font-semibold text-sm mb-1">{member.role}</p>
-                  <h3 className="font-bold text-gray-900 mb-4" style={{ fontSize: '1.5rem' }}>
-                    {member.name}
-                  </h3>
-                  <ul className="space-y-2">
-                    {member.bio.map((item, i) => (
-                      <li key={i} className="flex gap-3 text-gray-600 text-sm leading-relaxed">
-                        <svg className="w-3.5 h-3.5 shrink-0 mt-0.5" style={{ color: '#0a3a72' }} fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <ul className="space-y-1.5">
+                  {member.bio.map((item, i) => (
+                    <li key={i} className="flex gap-2 text-gray-600 leading-relaxed" style={{ fontSize: '0.8rem' }}>
+                      <svg className="w-3 h-3 shrink-0 mt-1" style={{ color: '#0a3a72' }} fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>

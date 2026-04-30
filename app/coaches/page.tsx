@@ -1,10 +1,21 @@
 import Image from 'next/image';
 
-const coordinator = {
-  name: 'Chuljin "Chris" Kim',
-  role: 'Volunteer Coordinator',
-  image: '/images/coaches/chuljin-kim.jpg',
-  bio: `Chris Kim is currently serving as a volunteer coordinator for Bergen All-Stars Special Olympic Team for the last 2 years.
+type Coordinator = {
+  name: string;
+  role: string;
+  image: string | null;
+  bio?: string;
+  email?: string;
+  phone?: string;
+};
+
+const coordinators: Coordinator[] = [
+  {
+    name: 'Chuljin "Chris" Kim',
+    role: 'Volunteer Coordinator',
+    image: '/images/coaches/chuljin-kim.jpg',
+    email: 'info@bergenallstars.com',
+    bio: `Chris Kim is currently serving as a volunteer coordinator for Bergen All-Stars Special Olympic Team for the last 2 years.
 
 For the past 30 years, he has served with "With Our Hands Together Inc.", a UN NGO's International Mission for the Disabled in New York City, as a supporter and board member, and he was recently appointed as chairperson for WOHT.
 
@@ -13,13 +24,22 @@ He has volunteered as a basketball coach and softball coach for his town's (Fort
 As a father of three daughters who are passionate about bowling — one in college and two current High School Varsity bowlers — he hopes their love for bowling will inspire others to participate more in Special Olympics bowling events.
 
 He currently serves as one of the committee members of Gospel Mission Church in Fairfield, NJ, as well as on their mission team. Over the past several years, he has served in various overseas missions, supporting disadvantaged people in Nepal, Guatemala, and Colombia.`,
-};
+  },
+  {
+    name: 'Min Jung Shim',
+    role: 'Assistant LTP Coordinator',
+    image: '/images/coordinators/min-jung-shim.jpg',
+    email: 'mjshim612@gmail.com',
+    phone: '646-341-3732',
+  },
+];
 
 type Coach = {
   name: string;
   sport: string | null;
+  role?: string;
   image: string | null;
-  bio: string;
+  bio?: string;
 };
 
 const coaches: Coach[] = [
@@ -62,6 +82,22 @@ Beyond the pool, Hyoun is deeply committed to community service. She volunteers 
 He actively serves in the Young Adults Ministry at Gospel Mission Church, mentoring and supporting young adults in their spiritual growth and fellowship. John has participated in two mission trips to countries in Central Asia, engaging in cross-cultural outreach and hands-on community service projects. He has also volunteered in the Homeless Ministry in Baltimore, assisting with food distribution and outreach to underserved communities.
 
 Currently, Coach John serves as Co-Head Coach for Special Olympics alongside his wife, Hyoun, and remains deeply involved in his children's USA Swimming team — volunteering at team events, assisting at swim meets, and supporting fundraising and team activities. Through military service, athletics, ministry, and coaching, he is committed to leading with integrity, serving with compassion, and creating a positive and encouraging environment for every athlete he supports.`,
+  },
+  {
+    name: 'Hyo Lee',
+    sport: 'Golf',
+    role: 'Head Golf Coach',
+    image: '/images/coaches/hyo-lee.jpg',
+  },
+  {
+    name: 'Sook Lim',
+    sport: 'Equestrian',
+    image: '/images/coordinators/sook-lim.jpg',
+  },
+  {
+    name: 'Sonya Choi',
+    sport: 'Bowling',
+    image: '/images/coordinators/sonya-choi.jpg',
   },
 ];
 
@@ -128,132 +164,199 @@ export default function Coaches() {
             <div className="w-12 h-0.5 bg-red-500 mt-3" />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
             {coaches.map((coach, index) => (
               <div
                 key={index}
-                className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-shadow flex flex-col"
+                className="bg-white rounded-xl border border-gray-200 hover:shadow-xl transition-shadow flex flex-col overflow-hidden"
               >
-                {/* Headshot */}
-                <div className="flex flex-col items-center mb-4">
-                  {coach.image ? (
+                {/* Top accent bar — matches site's red star/stripe theme */}
+                <div
+                  style={{
+                    height: '6px',
+                    background:
+                      'linear-gradient(90deg, #dc2626 0%, #ef4444 50%, #dc2626 100%)',
+                  }}
+                />
+
+                <div className="p-7 flex flex-col flex-1">
+                  {/* Headshot with gradient frame */}
+                  <div className="flex flex-col items-center mb-5">
                     <div
-                      className="relative rounded-full overflow-hidden mb-4"
-                      style={{ width: '7.5rem', height: '7.5rem' }}
-                    >
-                      <Image
-                        src={coach.image}
-                        alt={coach.name}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  ) : (
-                    <div
-                      className="rounded-full flex items-center justify-center mb-4"
+                      className="mb-4"
                       style={{
-                        width: '7.5rem',
-                        height: '7.5rem',
+                        padding: '4px',
+                        borderRadius: '1.25rem',
                         background:
-                          'linear-gradient(135deg, #0a3a72 0%, #083060 100%)',
+                          'linear-gradient(135deg, #dc2626 0%, #0a3a72 100%)',
+                        boxShadow: '0 6px 20px rgba(10, 58, 114, 0.18)',
                       }}
                     >
-                      <span className="text-white font-bold" style={{ fontSize: '1.75rem' }}>
-                        {initials(coach.name)}
-                      </span>
+                      {coach.image ? (
+                        <div
+                          className="relative overflow-hidden bg-white"
+                          style={{
+                            width: '13rem',
+                            height: '16rem',
+                            borderRadius: '1rem',
+                            border: '3px solid white',
+                          }}
+                        >
+                          <Image
+                            src={coach.image}
+                            alt={coach.name}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      ) : (
+                        <div
+                          className="flex items-center justify-center"
+                          style={{
+                            width: '13rem',
+                            height: '16rem',
+                            borderRadius: '1rem',
+                            border: '3px solid white',
+                            background:
+                              'linear-gradient(135deg, #0a3a72 0%, #083060 100%)',
+                          }}
+                        >
+                          <span className="text-white font-bold" style={{ fontSize: '2.75rem' }}>
+                            {initials(coach.name)}
+                          </span>
+                        </div>
+                      )}
                     </div>
-                  )}
-                  <h3 className="font-bold text-gray-900 mb-1 text-center" style={{ fontSize: '1.15rem' }}>
-                    {coach.name}
-                  </h3>
-                  <p className="text-red-600 font-medium text-xs uppercase tracking-wide">
-                    {coach.sport ? `${coach.sport} Coach` : 'Volunteer Coach'}
-                  </p>
-                </div>
+                    <h3
+                      className="font-bold text-gray-900 mb-2 text-center"
+                      style={{ fontSize: '1.25rem' }}
+                    >
+                      {coach.name}
+                    </h3>
+                    <p className="text-red-600 font-semibold text-xs uppercase tracking-widest flex items-center gap-2">
+                      <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                      </svg>
+                      {coach.role ?? (coach.sport ? `${coach.sport} Coach` : 'Volunteer Coach')}
+                      <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                      </svg>
+                    </p>
+                  </div>
 
-                {/* Bio */}
-                <p
-                  className="text-gray-600 text-sm leading-relaxed"
-                  style={{ whiteSpace: 'pre-line' }}
-                >
-                  {coach.bio}
-                </p>
+                  {/* Bio */}
+                  {coach.bio && (
+                    <p
+                      className="text-gray-600 text-sm leading-relaxed"
+                      style={{ whiteSpace: 'pre-line' }}
+                    >
+                      {coach.bio}
+                    </p>
+                  )}
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Coordinator */}
+      {/* Coordinators */}
       <section className="bg-white">
         <div style={{ maxWidth: '70rem', margin: '0 auto', padding: '2rem 2rem 4rem' }}>
           <div className="mb-8">
             <p className="text-xs font-semibold uppercase tracking-widest text-red-600 mb-2">
-              Program Coordinator
+              Program Coordinators
             </p>
             <h2 className="font-bold text-gray-900" style={{ fontSize: '1.75rem' }}>
-              Meet Our Coordinator
+              Meet Our Coordinators
             </h2>
             <div className="w-12 h-0.5 bg-red-500 mt-3" />
           </div>
 
-          <div className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-shadow">
-            <div className="flex flex-col md:flex-row items-center md:items-start gap-8 p-8">
-              {/* Headshot */}
-              {coordinator.image ? (
-                <div
-                  className="relative shrink-0 rounded-full overflow-hidden"
-                  style={{ width: '10rem', height: '10rem' }}
-                >
-                  <Image
-                    src={coordinator.image}
-                    alt={coordinator.name}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              ) : (
-                <div
-                  className="shrink-0 rounded-full flex items-center justify-center"
-                  style={{
-                    width: '10rem',
-                    height: '10rem',
-                    background:
-                      'linear-gradient(135deg, #041c3a 0%, #0a3a72 60%, #083060 100%)',
-                  }}
-                >
-                  <span className="text-white font-bold" style={{ fontSize: '2.5rem' }}>
-                    {initials(coordinator.name)}
-                  </span>
-                </div>
-              )}
+          <div className="flex flex-col gap-6">
+            {coordinators.map((coord, index) => (
+              <div
+                key={index}
+                className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-shadow"
+              >
+                <div className="flex flex-col md:flex-row items-center md:items-start gap-8 p-8">
+                  {/* Headshot */}
+                  {coord.image ? (
+                    <div
+                      className="relative shrink-0 rounded-full overflow-hidden"
+                      style={{ width: '8rem', height: '8rem' }}
+                    >
+                      <Image
+                        src={coord.image}
+                        alt={coord.name}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <div
+                      className="shrink-0 rounded-full flex items-center justify-center"
+                      style={{
+                        width: '8rem',
+                        height: '8rem',
+                        background:
+                          'linear-gradient(135deg, #041c3a 0%, #0a3a72 60%, #083060 100%)',
+                      }}
+                    >
+                      <span className="text-white font-bold" style={{ fontSize: '2rem' }}>
+                        {initials(coord.name)}
+                      </span>
+                    </div>
+                  )}
 
-              {/* Info */}
-              <div className="flex-1 text-center md:text-left">
-                <h3 className="font-bold text-gray-900 mb-1" style={{ fontSize: '1.5rem' }}>
-                  {coordinator.name}
-                </h3>
-                <p className="text-red-600 font-semibold text-sm uppercase tracking-wide mb-4">
-                  {coordinator.role}
-                </p>
-                <p
-                  className="text-gray-600 leading-relaxed mb-5"
-                  style={{ whiteSpace: 'pre-line' }}
-                >
-                  {coordinator.bio}
-                </p>
-                <a
-                  href="mailto:info@bergenallstars.com"
-                  className="inline-flex items-center gap-2 text-sm font-semibold hover:underline"
-                  style={{ color: '#0a3a72' }}
-                >
-                  <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                  Contact the Coordinator
-                </a>
+                  {/* Info */}
+                  <div className="flex-1 text-center md:text-left">
+                    <h3 className="font-bold text-gray-900 mb-1" style={{ fontSize: '1.5rem' }}>
+                      {coord.name}
+                    </h3>
+                    <p className="text-red-600 font-semibold text-sm uppercase tracking-wide mb-4">
+                      {coord.role}
+                    </p>
+                    {coord.bio && (
+                      <p
+                        className="text-gray-600 leading-relaxed mb-4"
+                        style={{ whiteSpace: 'pre-line' }}
+                      >
+                        {coord.bio}
+                      </p>
+                    )}
+                    {(coord.email || coord.phone) && (
+                      <div className="flex flex-col gap-2 items-center md:items-start">
+                        {coord.email && (
+                          <a
+                            href={`mailto:${coord.email}`}
+                            className="inline-flex items-center gap-2 text-sm hover:underline"
+                            style={{ color: '#0a3a72' }}
+                          >
+                            <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                            {coord.email}
+                          </a>
+                        )}
+                        {coord.phone && (
+                          <a
+                            href={`tel:${coord.phone.replace(/[^\d+]/g, '')}`}
+                            className="inline-flex items-center gap-2 text-sm hover:underline"
+                            style={{ color: '#0a3a72' }}
+                          >
+                            <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h2.28a2 2 0 011.94 1.515l.766 3.063a2 2 0 01-.5 1.872l-1.13 1.13a11.042 11.042 0 005.516 5.516l1.13-1.13a2 2 0 011.872-.5l3.063.766A2 2 0 0121 16.72V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                            </svg>
+                            {coord.phone}
+                          </a>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>

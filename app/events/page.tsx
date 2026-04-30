@@ -1,20 +1,52 @@
+import Image from 'next/image';
+
 type Event = {
   title: string;
   date: string;
   time?: string;
   location: string;
+  address?: string;
   description: string;
   category?: string;
+  images?: string[];
+  fullImage?: boolean;
 };
 
 const events: Event[] = [
   {
-    title: 'Placeholder Event — To Be Provided',
-    date: 'TBD',
-    location: 'TBD',
+    title: 'North Bocce Regional',
+    date: 'May 3, 2026',
+    location: 'Passaic County Technical Institute',
+    address: '45 Reinhardt Road, Wayne, NJ 07470',
     description:
-      'Event details will be added here once provided by the creator. Replace entries in the events array in app/events/page.tsx.',
-    category: 'Upcoming',
+      'Our bocce athletes compete in the North Regional tournament. Come out to cheer on the Bergen All-Stars team.',
+    category: 'Regional Competition',
+    images: ['/images/events/bocce-event.jpg'],
+  },
+  {
+    title: 'North Swimming Regional',
+    date: 'May 3, 2026',
+    location: 'Passaic County Technical Institute',
+    address: '45 Reinhardt Road, Wayne, NJ 07470',
+    description:
+      'Our swim team competes in the North Regional meet. Spectators welcome — come support our swimmers.',
+    category: 'Regional Competition',
+    images: ['/images/events/swim-event.jpg'],
+  },
+  {
+    title: 'Walk-A-Thon — Bergen County',
+    date: 'May 16, 2026',
+    time: '10:00 AM – 12:00 PM',
+    location: 'American Dream Mall',
+    address: '1 American Dream Way, East Rutherford, NJ 07073',
+    description:
+      'Join our community walk at American Dream Mall to raise funds and awareness for Bergen All-Stars athletes and programs.',
+    category: 'Fundraiser',
+    images: [
+      '/images/events/walkathon-event.png',
+      '/images/events/walkathon-event2.jpg',
+    ],
+    fullImage: true,
   },
 ];
 
@@ -53,26 +85,58 @@ export default function Events() {
             </div>
           ) : (
             <div className="flex flex-col gap-6">
-              {events.map((event, index) => (
+              {events.map((event, index) => {
+                const images = event.images ?? [];
+                const isStacked = event.fullImage || images.length > 1;
+
+                return (
                 <div
                   key={index}
-                  className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-shadow flex flex-col md:flex-row"
+                  className={`bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-shadow flex flex-col ${
+                    isStacked ? '' : 'md:flex-row'
+                  }`}
                 >
-                  {/* Date block */}
-                  <div
-                    className="md:w-56 shrink-0 flex flex-col items-center justify-center text-center text-white p-8"
-                    style={{ background: 'linear-gradient(135deg, #041c3a 0%, #0a3a72 100%)' }}
-                  >
-                    <svg className="w-8 h-8 text-red-400 mb-3" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                    <p className="font-bold leading-tight" style={{ fontSize: '1.25rem' }}>
-                      {event.date}
-                    </p>
-                    {event.time && (
-                      <p className="text-blue-200 text-sm mt-1">{event.time}</p>
-                    )}
-                  </div>
+                  {/* Event image(s) — stacked layout: full image(s) on top, content below */}
+                  {isStacked && images.length > 0 && (
+                    <div
+                      className={`bg-gray-50 border-b border-gray-200 flex flex-col ${
+                        images.length > 1 ? 'md:flex-row md:divide-x md:divide-gray-200' : ''
+                      }`}
+                    >
+                      {images.map((img, i) => (
+                        <div
+                          key={i}
+                          className="relative flex-1 bg-gray-50"
+                          style={{ height: '24rem' }}
+                        >
+                          <Image
+                            src={img}
+                            alt={`${event.title}${images.length > 1 ? ` (${i + 1} of ${images.length})` : ''}`}
+                            fill
+                            className="object-contain"
+                            sizes={
+                              images.length > 1
+                                ? '(max-width: 768px) 100vw, 50vw'
+                                : '(max-width: 768px) 100vw, 70rem'
+                            }
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Event image — side layout */}
+                  {!isStacked && images.length > 0 && (
+                    <div className="relative md:w-72 shrink-0 h-56 md:h-auto bg-gray-100">
+                      <Image
+                        src={images[0]}
+                        alt={event.title}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 18rem"
+                      />
+                    </div>
+                  )}
 
                   {/* Content */}
                   <div className="p-8 flex-1">
@@ -81,22 +145,38 @@ export default function Events() {
                         {event.category}
                       </p>
                     )}
-                    <h3 className="font-bold text-gray-900 mb-3" style={{ fontSize: '1.5rem' }}>
+                    <h3 className="font-bold text-gray-900 mb-4" style={{ fontSize: '1.5rem' }}>
                       {event.title}
                     </h3>
-                    <div className="flex items-center gap-2 text-sm text-gray-700 mb-4">
-                      <svg className="w-4 h-4 text-red-500 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+
+                    <div className="flex items-start gap-2 text-sm text-gray-700 mb-2">
+                      <svg className="w-4 h-4 text-red-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                      <div>
+                        <span className="font-semibold text-gray-900">{event.date}</span>
+                        {event.time && <span className="text-gray-600"> · {event.time}</span>}
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-2 text-sm text-gray-700 mb-4">
+                      <svg className="w-4 h-4 text-red-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                         <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
-                      <span>{event.location}</span>
+                      <div>
+                        <div className="font-semibold text-gray-900">{event.location}</div>
+                        {event.address && <div className="text-gray-600">{event.address}</div>}
+                      </div>
                     </div>
+
                     <p className="text-gray-600 leading-relaxed">
                       {event.description}
                     </p>
                   </div>
                 </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>
