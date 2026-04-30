@@ -9,7 +9,14 @@ type Event = {
   description: string;
   category?: string;
   images?: string[];
+  imageWidth?: number;
+  imageHeight?: number;
+  imagePositions?: string[];
   fullImage?: boolean;
+  cardMaxWidth?: string;
+  cropHeight?: string;
+  link?: string;
+  linkLabel?: string;
 };
 
 const events: Event[] = [
@@ -32,21 +39,53 @@ const events: Event[] = [
       'Our swim team competes in the North Regional meet. Spectators welcome — come support our swimmers.',
     category: 'Regional Competition',
     images: ['/images/events/swim-event.jpg'],
+    imagePositions: ['center 33%'],
   },
   {
-    title: 'Walk-A-Thon — Bergen County',
+    title: 'Walk SONJ — Bergen County',
     date: 'May 16, 2026',
     time: '10:00 AM – 12:00 PM',
     location: 'American Dream Mall',
     address: '1 American Dream Way, East Rutherford, NJ 07073',
     description:
-      'Join our community walk at American Dream Mall to raise funds and awareness for Bergen All-Stars athletes and programs.',
+      'Walk with us at the 4th annual Walk SONJ — Bergen County, a community walk and fundraiser supporting Special Olympics New Jersey athletes across Bergen County. Funds raised provide sports training, competition, health screenings, and leadership opportunities — all completely free of charge for our athletes.',
     category: 'Fundraiser',
-    images: [
-      '/images/events/walkathon-event.png',
-      '/images/events/walkathon-event2.jpg',
-    ],
+    images: ['/images/events/walkathon-event2.jpg'],
+    imageWidth: 2048,
+    imageHeight: 1367,
     fullImage: true,
+    cropHeight: '26rem',
+    imagePositions: ['center 69%'],
+    link: 'https://support.sonj.org/team/815629',
+    linkLabel: 'Support our Walk SONJ team page',
+  },
+  {
+    title: 'Clinic with LPGA Golf Players',
+    date: 'May 28, 2026',
+    location: 'Seaview Golf Club',
+    address: 'Atlantic City, NJ',
+    description:
+      'LPGA Professional Golf Players will provide a golf clinic at Seaview Golf Resort in Atlantic City for SONJ athletes. Pre-registration required.',
+    category: 'Athlete Clinic',
+    images: ['/images/events/golf-event.jpg'],
+    imagePositions: ['left center'],
+  },
+  {
+    title: 'Summer Games 2026',
+    date: 'June 5 – 7, 2026',
+    location: 'The College of New Jersey (TCNJ)',
+    address: '2000 Pennington Road, Ewing, NJ 08628',
+    description:
+      'Bergen All-Stars athletes compete at Special Olympics New Jersey’s Summer Games — three days of competition across summer sports including Bocce, Gymnastics, Powerlifting, Softball, Swimming, Tennis, and Track & Field. Come cheer on our team at TCNJ.',
+    category: 'State Championship',
+    images: [
+      '/images/programs/swim-team/swim1.jpg',
+      '/images/events/summer-games-2026.jpg',
+    ],
+    imagePositions: ['center bottom', 'center'],
+    fullImage: true,
+    link: 'https://www.sonj.org/events/summer-games/',
+    linkLabel: 'Event details on sonj.org',
   },
 ];
 
@@ -92,50 +131,74 @@ export default function Events() {
                 return (
                 <div
                   key={index}
-                  className={`bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-shadow flex flex-col ${
+                  className={`bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-shadow flex flex-col mx-auto w-full ${
                     isStacked ? '' : 'md:flex-row'
                   }`}
+                  style={event.cardMaxWidth ? { maxWidth: event.cardMaxWidth } : undefined}
                 >
-                  {/* Event image(s) — stacked layout: full image(s) on top, content below */}
-                  {isStacked && images.length > 0 && (
-                    <div
-                      className={`bg-gray-50 border-b border-gray-200 flex flex-col ${
-                        images.length > 1 ? 'md:flex-row md:divide-x md:divide-gray-200' : ''
-                      }`}
-                    >
+                  {/* Event image(s) — stacked layout: image(s) on top, content below */}
+                  {isStacked && images.length > 1 && (
+                    <div className="grid grid-cols-1 md:grid-cols-[5fr_7fr] gap-1 bg-gray-200">
                       {images.map((img, i) => (
                         <div
                           key={i}
-                          className="relative flex-1 bg-gray-50"
-                          style={{ height: '24rem' }}
+                          className="relative bg-gray-100 w-full"
+                          style={{ height: '22rem' }}
                         >
                           <Image
                             src={img}
-                            alt={`${event.title}${images.length > 1 ? ` (${i + 1} of ${images.length})` : ''}`}
+                            alt={`${event.title} (${i + 1} of ${images.length})`}
                             fill
                             quality={100}
-                            className="object-contain"
-                            sizes={
-                              images.length > 1
-                                ? '(max-width: 768px) 100vw, 50vw'
-                                : '(max-width: 768px) 100vw, 70rem'
-                            }
+                            className="object-cover"
+                            style={{
+                              objectPosition:
+                                event.imagePositions?.[i] ?? 'center',
+                            }}
+                            sizes="(max-width: 768px) 100vw, 50vw"
                           />
                         </div>
                       ))}
                     </div>
                   )}
 
+                  {/* Single-image stacked layout: edge-to-edge with optional vertical crop (panoramic strip) */}
+                  {isStacked && images.length === 1 && (
+                    event.cropHeight ? (
+                      <div className="relative w-full overflow-hidden" style={{ height: event.cropHeight }}>
+                        <Image
+                          src={images[0]}
+                          alt={event.title}
+                          fill
+                          quality={100}
+                          className="object-cover"
+                          style={{ objectPosition: event.imagePositions?.[0] ?? 'center' }}
+                          sizes="(max-width: 768px) 100vw, 70rem"
+                        />
+                      </div>
+                    ) : (
+                      <Image
+                        src={images[0]}
+                        alt={event.title}
+                        width={event.imageWidth ?? 1600}
+                        height={event.imageHeight ?? 1067}
+                        quality={100}
+                        className="w-full h-auto"
+                      />
+                    )
+                  )}
+
                   {/* Event image — side layout */}
                   {!isStacked && images.length > 0 && (
-                    <div className="relative md:w-72 shrink-0 h-56 md:h-auto bg-gray-100">
+                    <div className="relative md:w-[28rem] shrink-0 h-72 md:h-auto bg-gray-100">
                       <Image
                         src={images[0]}
                         alt={event.title}
                         fill
                         quality={100}
                         className="object-cover"
-                        sizes="(max-width: 768px) 100vw, 18rem"
+                        style={{ objectPosition: event.imagePositions?.[0] ?? 'center' }}
+                        sizes="(max-width: 768px) 100vw, 28rem"
                       />
                     </div>
                   )}
@@ -175,6 +238,20 @@ export default function Events() {
                     <p className="text-gray-600 leading-relaxed">
                       {event.description}
                     </p>
+                    {event.link && (
+                      <a
+                        href={event.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 mt-4 text-sm font-semibold hover:underline"
+                        style={{ color: '#0a3a72' }}
+                      >
+                        {event.linkLabel ?? 'Learn more'}
+                        <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                      </a>
+                    )}
                   </div>
                 </div>
                 );

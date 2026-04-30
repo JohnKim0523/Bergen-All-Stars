@@ -2,19 +2,21 @@
 
 import { useState, useEffect, useRef } from 'react';
 
-const bannerImages = [
-  '/images/banners/banner1.jpg',
-  '/images/banners/banner2.jpg',
-  '/images/banners/banner3.jpg',
-  '/images/banners/banner4.jpg',
-  '/images/banners/banner5.jpg',
-  '/images/banners/banner6.jpg',
-  '/images/banners/banner7.jpg',
-  '/images/banners/banner8.jpg',
-  '/images/banners/banner9.jpg',
-  '/images/banners/banner10.jpg',
-  '/images/banners/banner11.jpg',
-  '/images/banners/banner12.jpg',
+type Banner = { src: string; position?: string };
+
+const bannerImages: Banner[] = [
+  { src: '/images/banners/banner1.jpg' },
+  { src: '/images/banners/banner2.jpg' },
+  { src: '/images/banners/banner3.jpg' },
+  { src: '/images/banners/banner4.jpg', position: 'center 20%' },
+  { src: '/images/banners/banner5.jpg' },
+  { src: '/images/banners/banner6.jpg', position: 'center 20%' },
+  { src: '/images/banners/banner7.jpg', position: 'center 35%' },
+  { src: '/images/banners/banner8.jpg' },
+  { src: '/images/banners/banner9.jpg' },
+  { src: '/images/banners/banner10.jpg' },
+  { src: '/images/banners/banner11.jpg' },
+  { src: '/images/banners/banner12.jpg' },
 ];
 
 export default function HeroSlideshow() {
@@ -61,15 +63,15 @@ export default function HeroSlideshow() {
           transition: animate ? 'transform 700ms ease-in-out' : 'none',
         }}
       >
-        {slides.map((src, index) => (
+        {slides.map((banner, index) => (
           <div
             key={index}
             className="relative h-full"
             style={{
               width: `${100 / slides.length}%`,
-              backgroundImage: `url(${src})`,
+              backgroundImage: `url(${banner.src})`,
               backgroundSize: 'cover',
-              backgroundPosition: 'center',
+              backgroundPosition: banner.position ?? 'center',
             }}
           />
         ))}

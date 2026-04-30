@@ -10,6 +10,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [underlineStyle, setUnderlineStyle] = useState({ left: 0, width: 0 });
+  const [isNavbarResizing, setIsNavbarResizing] = useState(false);
   const navRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const pathname = usePathname();
 
@@ -27,11 +28,21 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // While the navbar is mid-grow/shrink (font-size transition is ~200ms), skip the
+  // underline's CSS transition so it snaps to each ResizeObserver update instead of
+  // lagging behind the link.
+  useEffect(() => {
+    setIsNavbarResizing(true);
+    const t = setTimeout(() => setIsNavbarResizing(false), 350);
+    return () => clearTimeout(t);
+  }, [isScrolled]);
+
   useEffect(() => {
     const activeIndex = navLinks.findIndex(link => link.href === pathname);
     const targetIndex = hoveredIndex !== null ? hoveredIndex : activeIndex;
+    if (targetIndex < 0) return;
 
-    if (targetIndex >= 0 && navRefs.current[targetIndex]) {
+    const updateUnderline = () => {
       const element = navRefs.current[targetIndex];
       if (element) {
         setUnderlineStyle({
@@ -39,8 +50,27 @@ export default function Navbar() {
           width: element.offsetWidth,
         });
       }
-    }
-  }, [pathname, hoveredIndex]);
+    };
+
+    updateUnderline();
+
+    // Track size/position changes as the navbar grows/shrinks (font-size transition)
+    // and on window resize.
+    window.addEventListener('resize', updateUnderline);
+    const observers: ResizeObserver[] = [];
+    navRefs.current.forEach((el) => {
+      if (el) {
+        const obs = new ResizeObserver(updateUnderline);
+        obs.observe(el);
+        observers.push(obs);
+      }
+    });
+
+    return () => {
+      window.removeEventListener('resize', updateUnderline);
+      observers.forEach((o) => o.disconnect());
+    };
+  }, [pathname, hoveredIndex, isScrolled]);
 
   const navLinks = [
     { href: '/', label: 'Home' },
@@ -103,11 +133,14 @@ export default function Navbar() {
             })}
             {/* Sliding underline - red */}
             <span
-              className="absolute bottom-0 bg-red-500 transition-all duration-500 ease-in-out"
+              className="absolute bottom-0 bg-red-500"
               style={{
                 left: `${underlineStyle.left}px`,
                 width: `${underlineStyle.width}px`,
                 height: '2px',
+                transition: isNavbarResizing
+                  ? 'none'
+                  : 'left 500ms ease-in-out, width 500ms ease-in-out',
               }}
             />
 

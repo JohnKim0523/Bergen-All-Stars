@@ -81,6 +81,7 @@ const programs: Program[] = [
     contact: {
       name: 'Sonya Choi',
       title: 'Coach',
+      email: 'sonyachoi@gmail.com',
       phone: '201-233-0952',
       image: '/images/coordinators/sonya-choi.jpg',
       imagePosition: 'center 15%',

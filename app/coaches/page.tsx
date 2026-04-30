@@ -4,6 +4,7 @@ type Coordinator = {
   name: string;
   role: string;
   image: string | null;
+  flipImage?: boolean;
   bio?: string;
   email?: string;
   phone?: string;
@@ -14,6 +15,7 @@ const coordinators: Coordinator[] = [
     name: 'Chuljin "Chris" Kim',
     role: 'Volunteer Coordinator',
     image: '/images/coaches/chuljin-kim.jpg',
+    flipImage: true,
     email: 'info@bergenallstars.com',
     bio: `Chris Kim is currently serving as a volunteer coordinator for Bergen All-Stars Special Olympic Team for the last 2 years.
 
@@ -262,25 +264,26 @@ export default function Coaches() {
                   {/* Headshot */}
                   {coord.image ? (
                     <div
-                      className="relative shrink-0 overflow-hidden"
-                      style={{ width: '10rem', height: '12rem', borderRadius: '0.875rem' }}
+                      className="relative shrink-0 overflow-hidden bg-gray-50"
+                      style={{ width: '15rem', height: '18rem', borderRadius: '1rem' }}
                     >
                       <Image
                         src={coord.image}
                         alt={coord.name}
                         fill
                         quality={100}
-                        sizes="11rem"
+                        sizes="16rem"
                         className="object-cover"
+                        style={coord.flipImage ? { transform: 'scaleX(-1)' } : undefined}
                       />
                     </div>
                   ) : (
                     <div
                       className="shrink-0 flex items-center justify-center"
                       style={{
-                        width: '10rem',
-                        height: '12rem',
-                        borderRadius: '0.875rem',
+                        width: '15rem',
+                        height: '18rem',
+                        borderRadius: '1rem',
                         background:
                           'linear-gradient(135deg, #041c3a 0%, #0a3a72 60%, #083060 100%)',
                       }}
