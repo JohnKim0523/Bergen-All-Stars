@@ -12,6 +12,7 @@ type Event = {
   imageWidth?: number;
   imageHeight?: number;
   imagePositions?: string[];
+  imageTransforms?: string[];
   fullImage?: boolean;
   cardMaxWidth?: string;
   cropHeight?: string;
@@ -21,70 +22,40 @@ type Event = {
 
 const events: Event[] = [
   {
-    title: 'North Bocce Regional',
-    date: 'May 3, 2026',
-    location: 'Passaic County Technical Institute',
-    address: '45 Reinhardt Road, Wayne, NJ 07470',
+    title: '2026 North Golf Regional',
+    date: 'September 12, 2026',
+    location: 'Plainfield West 9, Edison',
+    address: '1541 Woodland Avenue, Edison, NJ 08820',
     description:
-      'Our bocce athletes compete in the North Regional tournament. Come out to cheer on the Bergen All-Stars team.',
+      'Our golfers compete in the Special Olympics New Jersey North Golf Regional at Plainfield West 9. Come out and cheer on the Bergen All-Stars golf team.',
     category: 'Regional Competition',
-    images: ['/images/events/bocce-event.jpg'],
+    images: ['/images/events/fall-north-regional-golf-event.jpg'],
+    link: 'https://www.sonj.org/events/2026-north-golf-regional/',
+    linkLabel: 'Event details on sonj.org',
   },
   {
-    title: 'North Swimming Regional',
-    date: 'May 3, 2026',
-    location: 'Passaic County Technical Institute',
-    address: '45 Reinhardt Road, Wayne, NJ 07470',
+    title: 'Fall Games – Golf',
+    date: 'October 24, 2026',
+    location: 'Mountain View Golf Course',
+    address: '850 Bear Tavern Road, Ewing, NJ',
     description:
-      'Our swim team competes in the North Regional meet. Spectators welcome — come support our swimmers.',
-    category: 'Regional Competition',
-    images: ['/images/events/swim-event.jpg'],
-    imagePositions: ['center 33%'],
+      'Our golfers compete at the Special Olympics New Jersey Fall Games golf tournament at Mountain View Golf Course, where athletes play alongside Unified partners. Come out and support the Bergen All-Stars golf team.',
+    category: 'State Competition',
+    images: ['/images/events/fall-golf-event.jpg'],
+    imagePositions: ['center'],
+    link: 'https://www.sonj.org/events/fall-games-golf/',
+    linkLabel: 'Event details on sonj.org',
   },
   {
-    title: 'Walk SONJ — Bergen County',
-    date: 'May 16, 2026',
-    time: '10:00 AM – 12:00 PM',
-    location: 'American Dream Mall',
-    address: '1 American Dream Way, East Rutherford, NJ 07073',
+    title: 'Fall Games – Equestrian',
+    date: 'October 24, 2026',
+    location: 'Remote Competition',
+    address: 'Virtual',
     description:
-      'Walk with us at the 4th annual Walk SONJ — Bergen County, a community walk and fundraiser supporting Special Olympics New Jersey athletes across Bergen County. Funds raised provide sports training, competition, health screenings, and leadership opportunities — all completely free of charge for our athletes.',
-    category: 'Fundraiser',
-    images: ['/images/events/walkathon-event2.jpg'],
-    imageWidth: 2048,
-    imageHeight: 1367,
-    fullImage: true,
-    cropHeight: '26rem',
-    imagePositions: ['center 69%'],
-    link: 'https://support.sonj.org/team/815629',
-    linkLabel: 'Support our Walk SONJ team page',
-  },
-  {
-    title: 'Clinic with LPGA Golf Players',
-    date: 'May 28, 2026',
-    location: 'Seaview Golf Club',
-    address: 'Atlantic City, NJ',
-    description:
-      'LPGA Professional Golf Players will provide a golf clinic at Seaview Golf Resort in Atlantic City for SONJ athletes. Pre-registration required.',
-    category: 'Athlete Clinic',
-    images: ['/images/events/golf-event.jpg'],
-    imagePositions: ['left center'],
-  },
-  {
-    title: 'Summer Games 2026',
-    date: 'June 5 – 7, 2026',
-    location: 'The College of New Jersey (TCNJ)',
-    address: '2000 Pennington Road, Ewing, NJ 08628',
-    description:
-      'Bergen All-Stars athletes compete at Special Olympics New Jersey’s Summer Games — three days of competition across summer sports including Bocce, Gymnastics, Powerlifting, Softball, Swimming, Tennis, and Track & Field. Come cheer on our team at TCNJ.',
-    category: 'State Championship',
-    images: [
-      '/images/programs/swim-team/swim1.jpg',
-      '/images/events/summer-games-2026.jpg',
-    ],
-    imagePositions: ['center bottom', 'center'],
-    fullImage: true,
-    link: 'https://www.sonj.org/events/summer-games/',
+      'Our equestrian athletes compete in the Special Olympics New Jersey Fall Games horse show, held as a remote competition — riders perform at their own stables and submit videos for judging.',
+    category: 'State Competition',
+    images: ['/images/events/fall-equestrain-event.jpg'],
+    link: 'https://www.sonj.org/events/fall-games-equestrian/',
     linkLabel: 'Event details on sonj.org',
   },
 ];
@@ -190,14 +161,17 @@ export default function Events() {
 
                   {/* Event image — side layout */}
                   {!isStacked && images.length > 0 && (
-                    <div className="relative md:w-[28rem] shrink-0 h-72 md:h-auto bg-gray-100">
+                    <div className="relative md:w-[28rem] shrink-0 h-72 md:h-auto bg-gray-100 overflow-hidden">
                       <Image
                         src={images[0]}
                         alt={event.title}
                         fill
                         quality={100}
                         className="object-cover"
-                        style={{ objectPosition: event.imagePositions?.[0] ?? 'center' }}
+                        style={{
+                          objectPosition: event.imagePositions?.[0] ?? 'center',
+                          transform: event.imageTransforms?.[0],
+                        }}
                         sizes="(max-width: 768px) 100vw, 28rem"
                       />
                     </div>

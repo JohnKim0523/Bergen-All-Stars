@@ -27,6 +27,8 @@ const tiers = [
     donors: [
       'Paul Kim and Clare Kim',
       'Grace Foundation',
+      'Sung Yim and Shirley Yim',
+      'Jennifer Chiu',
     ],
   },
   {

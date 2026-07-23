@@ -5,18 +5,15 @@ import { useState, useEffect, useRef } from 'react';
 type Banner = { src: string; position?: string };
 
 const bannerImages: Banner[] = [
-  { src: '/images/banners/banner1.jpg' },
-  { src: '/images/banners/banner2.jpg' },
+  { src: '/images/banners/banner1.jpg', position: 'center top' },
+  { src: '/images/banners/banner2.jpg', position: 'center 32%' },
   { src: '/images/banners/banner3.jpg' },
-  { src: '/images/banners/banner4.jpg', position: 'center 20%' },
+  { src: '/images/banners/banner4.jpg', position: 'center 70%' },
   { src: '/images/banners/banner5.jpg' },
-  { src: '/images/banners/banner6.jpg', position: 'center 20%' },
-  { src: '/images/banners/banner7.jpg', position: 'center 35%' },
+  { src: '/images/banners/banner6.jpg' },
+  { src: '/images/banners/banner7.jpg', position: 'center 25%' },
   { src: '/images/banners/banner8.jpg' },
   { src: '/images/banners/banner9.jpg' },
-  { src: '/images/banners/banner10.jpg' },
-  { src: '/images/banners/banner11.jpg' },
-  { src: '/images/banners/banner12.jpg' },
 ];
 
 export default function HeroSlideshow() {

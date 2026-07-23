@@ -49,12 +49,6 @@ Sabrina teaches in both French and English and is known for her remarkable patie
 At Bergen Equestrian Center, Sabrina coaches several equestrian athletes who have gone on to earn Gold medals in the New Jersey Special Olympics — a reflection of the hard work, dedication, and teamwork they share.`,
   },
   {
-    name: 'Yongkyu Cho',
-    sport: 'Golf',
-    image: '/images/coaches/yongkyu-cho.jpg',
-    bio: `Yongkyu Cho is a volunteer coach for the Bergen All-Stars golf team. He has been with our team for 3 years and acquired his teaching license in 2024. Mr. Cho also holds a position in the Korean-American Golf Association as an administrator and a director.`,
-  },
-  {
     name: 'Hyeon In Cho',
     sport: 'Golf',
     image: '/images/coaches/hyeon-in-cho.jpg',
